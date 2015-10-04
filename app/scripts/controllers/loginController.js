@@ -7,7 +7,7 @@
  * Controller of the sbAdminApp
  */
 angular.module('sbAdminApp')
-  .controller('TestCtrl', function($scope) {
+  .controller('LoginCtrl', function($scope) {
   	console.log("hello baby i am here");
     
 });

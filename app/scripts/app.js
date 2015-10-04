@@ -92,16 +92,16 @@ angular
             })
           }
         }
-      }).state('fadfas',{
-        url:'/test',
-        controller: 'TestCtrl',
-        templateUrl:'views/test.html',
+      }).state('login',{
+        url:'/login',
+        controller: 'LoginCtrl',
+        templateUrl:'views/pages/login.html',
         resolve: {
           loadMyFiles:function($ocLazyLoad) {
             return $ocLazyLoad.load({
               name:'sbAdminApp',
               files:[
-              'scripts/controllers/testController.js'
+              'scripts/controllers/loginController.js'
               ]
             })
           }
@@ -115,10 +115,7 @@ angular
         templateUrl:'views/pages/blank.html',
         url:'/blank'
     })
-      .state('login',{
-        templateUrl:'views/pages/login.html',
-        url:'/login'
-    })
+      
       .state('dashboard.chart',{
         templateUrl:'views/chart.html',
         url:'/chart',
