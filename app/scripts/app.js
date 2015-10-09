@@ -21,7 +21,7 @@ angular
       events:true,
     });
 
-    $urlRouterProvider.otherwise('/dashboard/home');
+    $urlRouterProvider.otherwise('/login');
 
     $stateProvider
       .state('dashboard', {
@@ -110,6 +110,82 @@ angular
       .state('dashboard.form',{
         templateUrl:'views/form.html',
         url:'/form'
+    }) 
+       .state('dashboard.merchant',{
+        templateUrl:'views/merchantpages/merchant.html',
+        url:'/merchant',
+          controller:'ChartCtrl',
+        resolve: {
+          loadMyFile:function($ocLazyLoad) {
+            return $ocLazyLoad.load({
+              name:'chart.js',
+              files:[
+                'bower_components/angular-chart.js/dist/angular-chart.min.js',
+                'bower_components/angular-chart.js/dist/angular-chart.css'
+              ]
+            }),
+            $ocLazyLoad.load({
+                name:'sbAdminApp',
+                files:['scripts/controllers/chartContoller.js']
+            })
+          }
+        }
+    }).state('signUp-campus',{
+        templateUrl:'views/signUp-campus/signUp-campus.html',
+        url:'/signUp-campus'
+    })
+      .state('dashboard.ambassadors',{
+        templateUrl:'views/ambassadors/ambassadors.html',
+        url:'/ambassadors',
+          controller:'ChartCtrl',
+        resolve: {
+          loadMyFile:function($ocLazyLoad) {
+            return $ocLazyLoad.load({
+              name:'chart.js',
+              files:[
+                'bower_components/angular-chart.js/dist/angular-chart.min.js',
+                'bower_components/angular-chart.js/dist/angular-chart.css'
+              ]
+            }),
+            $ocLazyLoad.load({
+                name:'sbAdminApp',
+                files:['scripts/controllers/chartContoller.js']
+            })
+          }
+        }
+    })     
+      .state('dashboard.AboutUs',{
+        templateUrl:'views/websitepages/aboutuspage.html',
+        url:'/aboutuspage'
+    })
+      .state('dashboard.mediadynamic',{
+        templateUrl:'views/websitepages/media-dynamic.html',
+        url:'/media-dynamic'
+    })
+
+      .state('dashboard.branddynamic',{
+        templateUrl:'views/websitepages/brandmanager-dynamic.html',
+        url:'/brandmanager-dynamic'
+    }) 
+      .state('dashboard.aboutusdynamic',{
+        templateUrl:'views/websitepages/aboutus-dynamic.html',
+        url:'/aboutus-dynamic'
+    })
+      .state('dashboard.clientdynamic',{
+        templateUrl:'views/websitepages/client-dynamic.html',
+        url:'/client-dynamic'
+    })
+      .state('dashboard.BrandManagers',{
+        templateUrl:'views/websitepages/BrandManagers.html',
+        url:'/BrandManagers'
+    })
+      .state('dashboard.Clients',{
+        templateUrl:'views/websitepages/Clients.html',
+        url:'/Clients'
+    })
+      .state('dashboard.Media',{
+        templateUrl:'views/websitepages/Media.html',
+        url:'/Media'
     })
       .state('dashboard.blank',{
         templateUrl:'views/pages/blank.html',
@@ -117,7 +193,30 @@ angular
     })
       
       .state('dashboard.chart',{
-        templateUrl:'views/chart.html',
+        templateUrl:'views/add-event.html',
+        url:'/add-event',
+        controller:'ChartCtrl',
+        resolve: {
+          loadMyFile:function($ocLazyLoad) {
+            return $ocLazyLoad.load({
+              name:'chart.js',
+              files:[
+                'bower_components/angular-chart.js/dist/angular-chart.min.js',
+                'bower_components/angular-chart.js/dist/angular-chart.css',
+                'bower_components/moment/moment.js',
+                'bower_components/angular-bootstrap-datetimepicker/src/js/datetimepicker.js',
+                'bower_components/angular-bootstrap-datetimepicker/src/css/datetimepicker.css'
+              ]
+            }),
+            $ocLazyLoad.load({
+                name:'sbAdminApp',
+                files:['scripts/controllers/chartContoller.js']
+            })
+          }
+        }
+    })
+      .state('dashboard.social',{
+        templateUrl:'views/social.html',
         url:'/chart',
         controller:'ChartCtrl',
         resolve: {
@@ -128,7 +227,7 @@ angular
                 'bower_components/angular-chart.js/dist/angular-chart.min.js',
                 'bower_components/angular-chart.js/dist/angular-chart.css'
               ]
-            }),
+            })
             $ocLazyLoad.load({
                 name:'sbAdminApp',
                 files:['scripts/controllers/chartContoller.js']

@@ -7,18 +7,38 @@
  * Controller of the sbAdminApp
  */
 angular.module('sbAdminApp')
-  .controller('LoginCtrl', function($scope, $window) {
+  .controller('LoginCtrl', ['$scope', '$window', '$http',function($scope, $window, $http) {
   
   $scope.Login = function(loginObj){
   	var username = loginObj.username;
   	var pass = loginObj.password;
-  	if(username === "test@test.com" && pass === "test")
-  	{
-  		$window.location.href ="#/dashboard.home";
-  	}
+  //	if(username === "test@test.com" && pass === "test")
+  	{var  body = '{"email" :"' + username +'", "password" :"'+ pass +'" }'; 
+  		console.log(body);
+  		  $http({method: 'POST', url: 'http://api.partiko.com/merchant/login',data:body}).
+        then(function(response) {
+          $scope.status = response.status;
+          $scope.data = response.data;
+          console.log( response.status);
+          if( response.data.status)
+          {
+             $window.location.href ="/#/dashboard/home";
+             sessionStorage["token"] = response.data.token;
+          }
+          else{
+            ;
+          }
+        }, function(response) {
+         alert("Either password or username is wrong");
+      });
+    //   
+    }	
+  	//else{
+  		//alert("Either password or username is wrong");
+  	//}
 
   		console.log(username +" "+ pass );
   };
 
     
-});
+}]);
