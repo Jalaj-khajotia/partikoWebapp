@@ -7,10 +7,10 @@ angular.module('sbAdminApp')
     function ( $http, $rootScope, $timeout, Base64) {
         var service = {};
 
-             var authdata ='eyJrZXkiOiIwY2NhMWI1OWI0NjA1ZDU3In0.CQa6dA.BCTl2PTbykDdrgG_qUEvru2-HR0:';//  sessionStorage.getItem('token');
-             var encodedData = Base64.encode(authdata);
+             var authdata ='eyJrZXkiOiIwY2NhMWI1OWI0NjA1ZDU3In0.CQa6dA.BCTl2PTbykDdrgG_qUEvru2-HR0';//  sessionStorage.getItem('token');
+             var encodedData = btoa(authdata + ":partiko");
              $http.defaults.headers.common['Content-Type'] = 'application/json';   
-             $http.defaults.headers.common['Authorization'] ='Basic ZXlKclpYa2lPaUl3WTJOaE1XSTFPV0kwTmpBMVpEVTNJbjAuQ1FhM3BRLmJJdDJMVXB0Y2gyWTZqbUlocExNVHNORWkwNDo=';// 'Basic ' + encodedData;
+             $http.defaults.headers.common['Authorization'] ='Basic ' + encodedData;
             
         service.GetEvents = function () {
 
