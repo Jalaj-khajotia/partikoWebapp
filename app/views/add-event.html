@@ -12,7 +12,7 @@
 
                                    <label class="col-sm-2 col-lg-2 control-label " for="inputSuccess">Catagories</label>
                                    <div class="col-lg-6" style="margin-bottom:-15px;">
-                                       <select class="form-control m-bot15">
+                                       <select class="form-control m-bot15" ng-model="newEvent.category">
                                            <option >Nightlife</option>
                                            <option >Comedy</option>
                                            <option >Music</option>
@@ -30,20 +30,20 @@
                                  <div class="form-group">
                                     <label for="eventName" class="col-lg-2 col-sm-2 control-label">Event Title</label>
                                     <div class="col-lg-10">
-                                        <input type="text" class="form-control" id="eventName" placeholder="Event Name">
+                                        <input type="text" class="form-control" id="eventName" placeholder="Event Name" ng-model="newEvent.name">
                                     </div>
                                 </div>
                                 
                                 <div class="form-group">
                                     <label for="description" class="col-lg-2 col-sm-2 control-label">Description</label>
                                     <div class="col-lg-10">
-                                        <textarea  class="form-control" id="Comment" rows="5" placeholder="Some Details about event"></textarea>
+                                        <textarea  class="form-control" id="Comment" rows="5" placeholder="Some Details about event" ng-model="newEvent.description"></textarea>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-lg-2 col-sm-2   control-label">Tags</label>
                                     <div class="col-md-10">
-                                        <input  class="form-control" id="tags_1"  placeholder="Some Details about event" /></input>
+                                        <input  class="form-control" id="tags_1" ng-model="newEvent.tags"  placeholder="Some Details about event" /></input>
                                     </div>
 
                                 </div>
@@ -54,12 +54,14 @@
                                     
                                     <div class="dropdown" style="margin-top: 10px;">
                                         <a class="dropdown-toggle my-toggle-select" id="dLabel" role="button" data-toggle="dropdown" data-target="#" href="">
-                                            <div class="input-append col-md-10"><input type="text" class="input-large" data-ng-model="data.date2" style="width: 100%; border: 1px solid #ccc; border-radius: 4px;-webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);box-shadow: inset 0 1px 1px rgba(0,0,0,.075);"><span class="add-on"><i
+                                            <div class="input-append col-md-10">
+                                              <input type="text" class="input-large" ng-model="newEvent.start_time" style="width: 100%; border: 1px solid #ccc; border-radius: 4px;-webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);box-shadow: inset 0 1px 1px rgba(0,0,0,.075);">
+                                              <span class="add-on"><i
                                                     class="icon-calendar"></i></span>
                                             </div>
                                         </a>
                                         <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-                                            <datetimepicker data-ng-model="data.date2"
+                                            <datetimepicker ng-model="newEvent.start_time"
                                                             data-datetimepicker-config="{ dropdownSelector: '.my-toggle-select' }"></datetimepicker>
                                         </ul>
                                   
@@ -71,53 +73,56 @@
                                     
                                     <div class="dropdown" style="margin-top: 10px;">
                                         <a class="dropdown-toggle my-toggle-select" id="dLabel" role="button" data-toggle="dropdown" data-target="#" href="">
-                                            <div class="input-append col-md-10"><input type="text" class="input-large" data-ng-model="data.date" style="width: 100%; border: 1px solid #ccc; border-radius: 4px;-webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);box-shadow: inset 0 1px 1px rgba(0,0,0,.075);"><span class="add-on"><i
-                                                    class="icon-calendar"></i></span>
+                                            <div class="input-append col-md-10">
+                                              <input type="text" class="input-large" ng-model="newEvent.end_time" style="width: 100%; border: 1px solid #ccc; border-radius: 4px;-webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);box-shadow: inset 0 1px 1px rgba(0,0,0,.075);">
+                                              <span class="add-on">
+                                                <i class="icon-calendar"></i></span>
                                             </div>
                                         </a>
                                         <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-                                            <datetimepicker data-ng-model="data.date"
+                                            <datetimepicker ng-model="newEvent.end_time" 
                                                             data-datetimepicker-config="{ dropdownSelector: '.my-toggle-select' }"></datetimepicker>
                                         </ul>
                                   
                                     </div>
                                 </div>                            
-                                <div class="form-group">
-                                    <label class="control-label col-lg-2 col-sm-2">Image</label>
-                                    <div class="col-md-9">
-                                        <div class="fileupload fileupload-new" data-provides="fileupload">
-                                            <div class="fileupload-new thumbnail" style="width: 200px; height: 150px;">
-                                                <img src="http://www.placehold.it/200x150/EFEFEF/AAAAAA&amp;text=no+image" alt="" />
-                                            </div>
-                                            <div class="fileupload-preview fileupload-exists thumbnail" style="max-width: 200px; max-height: 150px; line-height: 20px;"></div>
-                                            <div>
-                                                <span class="btn btn-white btn-file">
-                                                    <span class="fileupload-new"><i class="fa fa-paper-clip"></i> Select image</span>
-                                                    <span class="fileupload-exists"><i class="fa fa-undo"></i> Change</span>
-                                                    <input type="file" class="default" />
-                                                </span>
-                                                <a href="#" class="btn btn-danger fileupload-exists" data-dismiss="fileupload"><i class="fa fa-trash"></i> Remove</a>
-                                            </div>
-                                        </div>
-                                        <span>
-                                          Note: Cover images Size Should be --x--
-                                        </span>
-                                    </div>
-                                </div>
+                             <!--    <div class="form-group">
+                                     <div ng-app="app" flow-init
+      flow-file-added="!!{png:1,gif:1,jpg:1,jpeg:1}[$file.getExtension()]"
+      flow-files-submitted="$flow.upload()">
+    <div class="thumbnail" ng-hide="$flow.files.length">
+      <img src="http://www.placehold.it/200x150/EFEFEF/AAAAAA&text=no+image" />
+    </div>
+    <div class="thumbnail" ng-show="$flow.files.length">
+      <img flow-img="$flow.files[0]" />
+    </div>
+    <div>
+      <a href="" class="btn btn-info" ng-hide="$flow.files.length" flow-btn flow-attrs="{accept:'image/*'}">Select image</a>
+      <a href="" class="btn" ng-show="$flow.files.length" flow-btn flow-attrs="{accept:'image/*'}">Change</a>
+      <a href="" class="btn btn-danger" ng-show="$flow.files.length"
+         ng-click="$flow.cancel()">
+        Remove
+      </a>
+    </div>
+    <p>
+      Only PNG,GIF,JPG files allowed.
+    </p>
+  </div>
+                                </div> -->
                                 <div class="form-group">
                                     <label for="location" class="col-lg-2 col-sm-2 control-label">Location</label>
                                     <div class="col-lg-10">
-                                        <input type="text" class="form-control" id="location" placeholder="Place of event">
+                                        <input type="text" class="form-control" id="location" ng-model="newEvent.location"  placeholder="Place of event">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="Price" class="col-lg-2 col-sm-2 control-label">Price</label>
                                     <div class="col-lg-10">
-                                        <input type="text" class="form-control" id="price" placeholder="Price In Rupee">
+                                        <input type="text" class="form-control" id="price" ng-model="newEvent.price"  placeholder="Price In Rupee">
                                     </div>
                                 </div>
                                 <div class="col-lg-offset-2 col-lg-10">
-                                    <button type="submit" class="btn btn-info">Submit</button>
+                                    <button type="submit" class="btn btn-info" ng-click="AddEvent(newEvent)">Submit</button>
                                 </div>
                             </form>
                         </div>

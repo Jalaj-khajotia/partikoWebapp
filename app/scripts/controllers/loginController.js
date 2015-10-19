@@ -23,7 +23,7 @@ angular.module('sbAdminApp')
           if( response.data.status)
           {
              $window.location.href ="/#/dashboard/home";
-             sessionStorage["token"] = response.data.token;
+             sessionStorage.setItem('token', response.data.token);
           }
           else{
             ;
