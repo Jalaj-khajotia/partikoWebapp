@@ -12,11 +12,12 @@ angular.module('sbAdminApp')
              $http.defaults.headers.common['Content-Type'] = 'application/json';   
              $http.defaults.headers.common['Authorization'] ='Basic ' + encodedData;
             
-        service.GetEvents = function () {
+        service.GetEvents = function (callback) {
 
              $http.post('http://web.partiko.com/merchant/events', {"offset":0})
                .success(function (response) {
                    console.log(response.events);
+                   callback(response);
                    return response.events;
                });
 
