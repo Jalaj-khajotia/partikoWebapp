@@ -228,7 +228,7 @@ angular
                 'bower_components/angular-chart.js/dist/angular-chart.min.js',
                 'bower_components/angular-chart.js/dist/angular-chart.css'
               ]
-            })
+            }),
             $ocLazyLoad.load({
                 name:'sbAdminApp',
                 files:['scripts/controllers/chartContoller.js']
@@ -241,9 +241,25 @@ angular
         url:'/table'
     })
       .state('dashboard.panels-wells',{
-          templateUrl:'views/ui-elements/panels-wells.html',
-          url:'/panels-wells'
-      })
+        templateUrl:'views/eventpages/events.html',
+        url:'/events',
+        controller:'EventCtrl',
+        resolve: {
+          loadMyFile:function($ocLazyLoad) {
+            return $ocLazyLoad.load({
+              name:'chart.js',
+              files:[ 
+                'bower_components/angular-chart.js/dist/angular-chart.min.js',
+                'bower_components/angular-chart.js/dist/angular-chart.css'
+              ]
+            }),
+            $ocLazyLoad.load({
+                name:'sbAdminApp',
+                files:['scripts/controllers/eventController.js']
+            })
+          }
+        }
+    })
       .state('dashboard.buttons',{
         templateUrl:'views/ui-elements/buttons.html',
         url:'/buttons'

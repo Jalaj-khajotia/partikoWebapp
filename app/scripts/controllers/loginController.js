@@ -7,13 +7,18 @@
  * Controller of the sbAdminApp
  */
 angular.module('sbAdminApp')
-  .controller('LoginCtrl', ['$scope', '$window', '$http',function($scope, $window, $http) {
+  .controller('LoginCtrl', ['$scope', '$window', '$http','AuthenticationService',
+    function($scope, $window, $http,AuthenticationService) {
   
   $scope.Login = function(loginObj){
   	var username = loginObj.username;
   	var pass = loginObj.password;
+
+    AuthenticationService.Login(username,pass);
+
+
   //	if(username === "test@test.com" && pass === "test")
-  	{var  body = '{"email" :"' + username +'", "password" :"'+ pass +'" }'; 
+  /*	{var  body = '{"email" :"' + username +'", "password" :"'+ pass +'" }'; 
   		console.log(body);
   		  $http({method: 'POST', url: 'http://api.partiko.com/merchant/login',data:body}).
         then(function(response) {
@@ -32,7 +37,7 @@ angular.module('sbAdminApp')
          alert("Either password or username is wrong");
       });
     //   
-    }	
+    }	*/
   	//else{
   		//alert("Either password or username is wrong");
   	//}
