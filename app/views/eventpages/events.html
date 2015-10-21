@@ -12,8 +12,8 @@
                     <div >
                         <div class="row">
                             <div class=" col-xs-9">
-                                <img class="img-responsive" style="height: 60px; margin-left: 70px;" src="../images/weather_image.jpg" />
-                                <table style=" margin-left: 70px; margin-top: 20px; text-align: left;">
+                                <img class="img-responsive" style="max-width: 90%; margin-left: 70px;" src="../images/weather_image.jpg" />
+                                <!-- <table style=" margin-left: 70px; margin-top: 20px; text-align: left;">
                                     <tr>
                                         <td>Category: </td>
                                         <td>{{ event.category }}</td>
@@ -34,12 +34,12 @@
                                         <td>Price: </td>
                                         <td>{{ event.price }}</td>
                                     </tr>
-                                </table>                              
+                                </table>   -->                            
                             </div>
 
                             <div class="col-xs-3">
                                 <div class="btn-group-vertical">
-                                    <a role="button"href="" target="_blank" class="btn btn-white" >View</a>
+                                    <a role="button"href="" target="_blank" class="btn btn-white" ng-click="ShowEventDetails(event)" >View</a>
 
                                     <a role="button" href="" target="_blank" class="btn btn-white">Setting</a>
 
@@ -59,7 +59,7 @@
                                                     <p>Do you really want to delete this event.</p>
                                                 </div>
                                                 <div class="modal-footer">
-                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Yes</button>
+                                                    <button type="button" class="btn btn-default" ng-click="DeleteEvent(event)" data-dismiss="modal">Yes</button>
                                                     <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
                                                 </div>
                                             </div>
