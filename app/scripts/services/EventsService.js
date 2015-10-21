@@ -53,6 +53,7 @@ angular.module('sbAdminApp')
         };
 
         service.EditEvents = function(event){
+            console.log(event);
              return $http.put('http://web.partiko.com/merchant/event',event)
                 .then(function(response){
                      return response;
@@ -61,7 +62,7 @@ angular.module('sbAdminApp')
                  });
         };
 
-         service.AddEvents = function (event,callback,failure) {
+         service.AddEvents = function (event) {
 
              $http.post('http://web.partiko.com/merchant/event', event)
                .success(function (response) {
