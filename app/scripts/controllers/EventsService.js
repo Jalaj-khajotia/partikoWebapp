@@ -6,8 +6,8 @@ angular.module('sbAdminApp')
     ['$http', '$rootScope', '$timeout','Base64',
     function ( $http, $rootScope, $timeout, Base64) {
         var service = {};
-
-             var authdata ='eyJrZXkiOiIwY2NhMWI1OWI0NjA1ZDU3In0.CQa6dA.BCTl2PTbykDdrgG_qUEvru2-HR0';//  sessionStorage.getItem('token');
+//'eyJrZXkiOiIwY2NhMWI1OWI0NjA1ZDU3In0.CQa6dA.BCTl2PTbykDdrgG_qUEvru2-HR0';//  
+             var authdata = sessionStorage.getItem('token');
              var encodedData = btoa(authdata + ":partiko");
              $http.defaults.headers.common['Content-Type'] = 'application/json';   
              $http.defaults.headers.common['Authorization'] ='Basic ' + encodedData;
@@ -27,11 +27,45 @@ angular.module('sbAdminApp')
 
         };
 
+        service.DeleteEvent = function(eventkey){
+        // change to http://web.partiko.com/merchant/event
+        console.log('eventkey: '+ eventkey);
+        var req = {
+                     method: 'DELETE',
+                     url: 'http://api.partiko.com/merchant/event',
+                      data: { event_key: eventkey}
+                    };
+             /* var deletejson = JSON.parse('{"event_key" :'+ eventkey+'}');*/
+           return $http(req)
+           .then(function(response){
+            return response;
+           }, function(error){
+              return error;
+           });
+
+          /*  return $http.delete('http://api.partiko.com/merchant/event', deletejson)
+                .then(function(response){
+                     return response;
+                 },function(error){
+                    return error;
+                 });
+*/
+        };
+
+        service.EditEvents = function(event){
+             return $http.put('http://web.partiko.com/merchant/event',event)
+                .then(function(response){
+                     return response;
+                 },function(error){
+                    return error;
+                 });
+        };
+
          service.AddEvents = function (event,callback,failure) {
 
              $http.post('http://web.partiko.com/merchant/event', event)
                .success(function (response) {
-                   console.log(response);
+                  //console.log(response);
                    return response;
                    callback();
                }).error(function(){
