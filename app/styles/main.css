@@ -11,6 +11,16 @@ body {
   padding-right: 15px;
 }
 
+td:nth-child(odd) {
+  font-weight: bold;
+}
+tr:nth-child(odd) {
+ background: #F3EEEE;
+}
+tr:nth-child(even) {  
+  background: #FDFDFD;
+}
+
 /* Custom page header */
 .header {
   border-bottom: 1px solid #e5e5e5;
