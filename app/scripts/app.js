@@ -236,13 +236,29 @@ angular
           }
         }
     })
-      .state('dashboard.table',{
-        templateUrl:'views/table.html',
-        url:'/table'
-    })
-      .state('dashboard.panels-wells',{
+      .state('dashboard.eventDetail',{
+        templateUrl:'views/eventpages/event-details.html',
+        url:'/event',
+        controller:'EventDetailsCtrl',
+        resolve: {
+          loadMyFile:function($ocLazyLoad) {
+            return $ocLazyLoad.load({
+              name:'chart.js',
+              files:[ 
+                'bower_components/angular-chart.js/dist/angular-chart.min.js',
+                'bower_components/angular-chart.js/dist/angular-chart.css'
+              ]
+            }),
+            $ocLazyLoad.load({
+                name:'sbAdminApp',
+                files:['scripts/controllers/eventDetailsController.js']
+            })
+          }
+        }
+    })      
+      .state('dashboard.events',{
         templateUrl:'views/eventpages/events.html',
-        url:'/events',
+        url:'/events/:type?',
         controller:'EventCtrl',
         resolve: {
           loadMyFile:function($ocLazyLoad) {
@@ -259,7 +275,8 @@ angular
             })
           }
         }
-    })
+    })      
+
       .state('dashboard.buttons',{
         templateUrl:'views/ui-elements/buttons.html',
         url:'/buttons'
