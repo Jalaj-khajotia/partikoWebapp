@@ -13,12 +13,15 @@ body {
 
 td:nth-child(odd) {
   font-weight: bold;
+  font-size: 20px;
 }
 tr:nth-child(odd) {
  background: #F3EEEE;
+ height: 40px;
 }
 tr:nth-child(even) {  
   background: #FDFDFD;
+  height: 40px;
 }
 
 /* Custom page header */
