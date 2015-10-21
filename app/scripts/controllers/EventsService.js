@@ -14,12 +14,16 @@ angular.module('sbAdminApp')
             
         service.GetEvents = function (callback) {
 
-             $http.post('http://web.partiko.com/merchant/events', {"offset":0})
-               .success(function (response) {
-                   console.log(response.events);
+            return $http.post('http://web.partiko.com/merchant/events', {"offset":0})
+               .then( function (response) {
+                  // console.log(response.data.events);
                    callback(response);
-                   return response.events;
-               });
+                   return response;
+               },function (error) {
+                    var data = error.data;
+                    return error;
+                    // not relevant
+                  });
 
         };
 
