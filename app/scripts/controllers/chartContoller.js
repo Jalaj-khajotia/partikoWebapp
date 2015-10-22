@@ -33,7 +33,7 @@ var event =  '{"name":"test1", "category":"Music", "start_time":"2015-10-22T10:0
 //console.log(EventsService.GetEvents(event));
 
 $scope.AddEvent = function(newEvent){
-    newEvent.start_time = "2015-10-22T10:00:00" ;
+    newEvent.start_time = "2015-10-28T10:00:00" ;
    EventsService.AddEvents(newEvent,function(){alert("event added successfully")},
     function(){alert("error occurred");});
 

@@ -69,8 +69,9 @@ angular.module('sbAdminApp')
                   //console.log(response);
                    return response;
                    callback();
-               }).error(function(){
-                failure();
+               }).error(function(error){
+               // failure();
+               console.log(error);
                });
 
          };
