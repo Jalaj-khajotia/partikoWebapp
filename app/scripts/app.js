@@ -92,20 +92,6 @@ angular
             })
           }
         }
-      }).state('login',{
-        url:'/login',
-        controller: 'LoginCtrl',
-        templateUrl:'views/pages/login.html',
-        resolve: {
-          loadMyFiles:function($ocLazyLoad) {
-            return $ocLazyLoad.load({
-              name:'sbAdminApp',
-              files:[
-              'scripts/controllers/loginController.js'
-              ]
-            })
-          }
-        }
       })
       .state('dashboard.form',{
         templateUrl:'views/form.html',
@@ -275,8 +261,22 @@ angular
             })
           }
         }
-    })      
-
+    }) 
+     .state('login',{
+        url:'/login',
+        controller: 'LoginCtrl',
+        templateUrl:'views/pages/login.html',
+        resolve: {
+          loadMyFiles:function($ocLazyLoad) {
+            return $ocLazyLoad.load({
+              name:'sbAdminApp',
+              files:[
+              'scripts/controllers/loginController.js'
+              ]
+            })
+          }
+        }
+      })
       .state('dashboard.buttons',{
         templateUrl:'views/ui-elements/buttons.html',
         url:'/buttons'
