@@ -7,20 +7,15 @@
  * Controller of the sbAdminApp
  */
 angular.module('sbAdminApp')
-  .controller('MainCtrl',['$scope', '$window', function($scope, $window) {
-  	var token = sessionStorage["token"];
-  	
-  	if(!token)
-  	{  		
-		// $window.location.href ="/#/Login";
-  	}
-  	else
-  	{  		
-  	}
+  .controller('MainCtrl', ['$scope', '$window', function($scope, $window) {
+    var token = sessionStorage["token"];
 
-$scope.LogOut = function ()
-{
-	console.log("i am getting called");
-}
-console.log("i am getting called");
+    if (!token) {
+      // $window.location.href ="/#/Login";
+    } else {}
+
+    $scope.LogOut = function() {
+      console.log("i am getting called");
+    }
+    console.log("i am getting called");
   }]);
