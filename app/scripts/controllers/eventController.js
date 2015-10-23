@@ -11,7 +11,7 @@ angular.module('sbAdminApp', ['toastr'])
       $scope.eventsList = {};
       $scope.filteredEvents = {};
       var epoch, isEventsPresentinSession;
-
+     $scope.hideSearchBar = false;
       function LoadEventsFromSession() {
         $scope.eventsList = JSON.parse(isEventsPresentinSession);
       }
@@ -90,7 +90,7 @@ angular.module('sbAdminApp', ['toastr'])
 
 
       $scope.SearchEvent = function(keyword) {
-        $scope.hideSearchBar = true;
+        $scope.hideSearchBar = false;
         var pastEvents = [];
         var latestEvents = [];
         CheckLastSession();

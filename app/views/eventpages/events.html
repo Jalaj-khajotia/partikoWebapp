@@ -3,12 +3,15 @@
         <!-- page start-->
         <div class="row" style="text-align : center;">
              
-             <div class="col-sm-12" ng-hide="hideSearchBar" >
+             <div class="col-sm-12" ng-show="hideSearchBar && filteredEvents.length">
                   <input type="text" class="inbox__search"  style="color: darkorchid; width: 300px; margin: 15px 0;"
         ng-model="keyword" placeholder="Search within events">
              </div>
         </div>
 <div class="row">
+    <div class="col-sm-12" ng-show ="!filteredEvents.length" style="font-size: 20px; margin-top: 20px; font-weight: bold; color: crimson; margin-left: 160px;">
+        No Events posted by you. Try adding some on Add-Event page.
+    </div> 
         <div class="col-sm-6" ng-repeat="event in filteredEvents  | filter:keyword " style="text-align : center;">
         
              <header class="panel-heading" id="eventheading1" style="font-weight:bold;">
