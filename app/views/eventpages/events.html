@@ -1,10 +1,17 @@
 <section id="main-content">
         <section class="wrapper">
         <!-- page start-->
+        <div class="row" style="text-align : center;">
+             
+             <div class="col-sm-12" ng-hide="hideSearchBar" >
+                  <input type="text" class="inbox__search"  style="color: darkorchid; width: 300px; margin: 15px 0;"
+        ng-model="keyword" placeholder="Search within events">
+             </div>
+        </div>
 <div class="row">
-        <div class="col-sm-6" ng-repeat="event in filteredEvents" style="text-align : center;">
+        <div class="col-sm-6" ng-repeat="event in filteredEvents  | filter:keyword " style="text-align : center;">
         
-             <header class="panel-heading" id="eventheading1" style="margin-right: 200px; font-weight:bold;">
+             <header class="panel-heading" id="eventheading1" style="font-weight:bold;">
                         {{ event.name }}                  
                     </header>
                 <section class="panel">
@@ -12,7 +19,10 @@
                     <div >
                         <div class="row">
                             <div class=" col-xs-9">
-                                <img class="img-responsive" style="max-width: 90%; margin-left: 70px;" src="../images/weather_image.jpg" />
+                                <img class="img-responsive" style="max-width: 90%; margin-left: 70px;" ng-src="{{event.cover}}" />
+                                <div class="col-sm-12" style="margin: 10px;">
+                                    Starts @ {{ event.start_time}}
+                                </div>
                                 <!-- <table style=" margin-left: 70px; margin-top: 20px; text-align: left;">
                                     <tr>
                                         <td>Category: </td>
