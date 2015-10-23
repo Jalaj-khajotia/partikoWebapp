@@ -6,7 +6,7 @@
             </li>
             <li ui-sref-active="active">
 
-                <a ui-sref="dashboard.chart"><i class="fa fa-group fa-fw"></i>Add Event<span></span></a>
+                <a ui-sref="dashboard.addEvents"><i class="fa fa-group fa-fw"></i>Add Event<span></span></a>
 
             </li>
 
@@ -25,9 +25,9 @@
                     <li ui-sref-active="active">
                         <div class="input-group m-bot15" style="margin-left:20px;width:200px;">
                             <span class="input-group-addon btn-default">
-                                <i class="fa fa-search"></i>
+                               <a ui-sref="dashboard.eventsearch({search: keyword})" style="padding: 0px;"> <i class="fa fa-search"></i></a>
                             </span>
-                            <input type="text" class="form-control" placeholder="Search Event">
+                            <input type="text" class="form-control" ng-keypress="handle($event)"  ng-model="keyword" placeholder="Search Event">
                         </div>
                     </li>
 
