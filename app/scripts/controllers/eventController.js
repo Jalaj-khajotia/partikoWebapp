@@ -1,8 +1,8 @@
 'use strict';
 
-angular.module('sbAdminApp')
-  .controller('EventCtrl', ['$scope', '$window', '$http', 'EventsService', '$stateParams',
-    function($scope, $window, $http, EventsService, $stateParams) {
+angular.module('sbAdminApp', ['toastr'])
+  .controller('EventCtrl', ['$scope', '$window', '$http', 'EventsService', '$stateParams', 'toastr',
+    function($scope, $window, $http, EventsService, $stateParams, toastr) {
 
       var eventsType = $stateParams.type;
       var keyword = $stateParams.search;
@@ -132,7 +132,23 @@ angular.module('sbAdminApp')
       $scope.DeleteEvent = function(event) {
         console.log('deleting event' + event);
         EventsService.DeleteEvent(event.key).then(function(response) {
-          console.log(response);
+          toastr.success('Event deleted successfully', 'Success!');
+          sessionStorage.removeItem('allEvents');
+          var afterDeleteEvents = [];
+          angular.forEach($scope.filteredEvents, function(currentEvent) {
+            if (currentEvent.key !== event.key && currentEvent.key !== undefined && currentEvent.key !== null && currentEvent.key !== '') {
+              afterDeleteEvents.push(currentEvent);
+            }
+          });
+
+          $scope.filteredEvents = afterDeleteEvents;
+         // var eventString =  JSON.stringify(afterDeleteEvents);
+          //sessionStorage.setItem('allEvents', eventString);
+          console.log($scope.filteredEvents);
+          console.log('event getting deleted');
+          console.log(afterDeleteEvents);
+        }, function() {
+          toastr.success('Event deleting failed', 'Error!');
         });
       }
 

@@ -194,16 +194,17 @@ angular
         }
       })
     .state('dashboard.addEvents', {
-        templateUrl: 'views/add-event.html',
+        templateUrl: 'views/eventpages/add-event.html',
         url: '/add-event',
         controller: 'addEventCtrl',
         resolve: {
           loadMyFile: function($ocLazyLoad) {
             return $ocLazyLoad.load({
-                name: 'chart.js',
+                name: 'toastr.js',
                 files: [
-                  'bower_components/angular-chart.js/dist/angular-chart.min.js',
-                  'bower_components/angular-chart.js/dist/angular-chart.css',
+                  'bower_components/angular-toastr/dist/angular-toastr.css',
+                  'bower_components/angular-toastr/dist/angular-toastr.tpls.js',
+                  'bower_components/angular-animate/angular-animate.js',
                   'bower_components/angular-bootstrap-datetimepicker/src/js/datetimepicker.js',
                   'bower_components/angular-bootstrap-datetimepicker/src/css/datetimepicker.css',
                   'bower_components/angular-resource/angular-resource.js'
@@ -245,10 +246,10 @@ angular
         resolve: {
           loadMyFile: function($ocLazyLoad) {
             return $ocLazyLoad.load({
-                name: 'chart.js',
-                files: [
-                  'bower_components/angular-chart.js/dist/angular-chart.min.js',
-                  'bower_components/angular-chart.js/dist/angular-chart.css'
+                name: 'toastr.js',
+                files: [   
+                  'bower_components/angular-toastr/dist/angular-toastr.css',
+                  'bower_components/angular-toastr/dist/angular-toastr.tpls.js',
                 ]
               }),
               $ocLazyLoad.load({

@@ -65,15 +65,16 @@ angular.module('sbAdminApp')
         });
     };
 
-    service.AddEvents = function(event) {
+    service.AddEvents = function(event, callback, failure) {
 
       $http.post('http://web.partiko.com/merchant/event', event)
         .success(function(response) {
           //console.log(response);
+           callback();
           return response;
-          callback();
+         
         }).error(function(error) {
-          // failure();
+           failure();
           console.log(error);
         });
 

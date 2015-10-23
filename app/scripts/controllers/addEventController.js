@@ -6,7 +6,7 @@
  * # MainCtrl
  * Controller of the sbAdminApp
  */
-angular.module('sbAdminApp', ['ui.bootstrap.datetimepicker'], ['flow'])
+angular.module('sbAdminApp', ['ui.bootstrap.datetimepicker', 'flow', 'toastr'])
   /*.config(['flowFactoryProvider', function (flowFactoryProvider) {
     flowFactoryProvider.defaults = {
       target: 'upload.php',
@@ -22,11 +22,11 @@ angular.module('sbAdminApp', ['ui.bootstrap.datetimepicker'], ['flow'])
     // Can be used with different implementations of Flow.js
     // flowFactoryProvider.factory = fustyFlowFactory;
   }])*/
-  .controller('addEventCtrl', ['$scope', '$timeout', '$http', 'EventsService', function($scope, $timeout, $http, EventsService) {
+  .controller('addEventCtrl', ['$scope', '$timeout', '$http', 'EventsService', 'toastr', function($scope, $timeout, $http, EventsService, toastr) {
 
     //http://jsonplaceholder.typicode.com/posts/1
 
-
+ 
 
     var event = '{"name":"test1", "category":"Music", "start_time":"2015-10-22T10:00:00",  "description": "new event jalaj", "tags": "comedy", "phone2": "8179014226", "price": "1", "phone1": "9717152069", "cover": "" }';
 
@@ -35,10 +35,12 @@ angular.module('sbAdminApp', ['ui.bootstrap.datetimepicker'], ['flow'])
     $scope.AddEvent = function(newEvent) {
       newEvent.start_time = "2015-10-28T10:00:00";
       EventsService.AddEvents(newEvent, function() {
-          alert("event added successfully")
+        $scope.newEvent = null;
+         toastr.success('Event added successfully', 'Success!');
+         sessionStorage.removeItem('allEvents');
         },
         function() {
-          alert("error occurred");
+        toastr.error('Try again', 'Error!');
         });
     };
   }]);
