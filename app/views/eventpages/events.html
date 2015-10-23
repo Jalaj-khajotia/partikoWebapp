@@ -19,7 +19,8 @@
                     <div >
                         <div class="row">
                             <div class=" col-xs-9">
-                                <img class="img-responsive" style="max-width: 90%; margin-left: 70px;" ng-src="{{event.cover}}" />
+                                <img class="img-responsive" style="max-width: 90%; margin-left: 70px;" ng-if="!!event.cover" ng-src="{{event.cover}}" />
+                                <img class="img-responsive" style="max-width: 90%; margin-left: 70px;" ng-if="!!!event.cover" src="../images/weather_image.jpg" />
                                 <div class="col-sm-12" style="margin: 10px;">
                                     Starts @ {{ event.start_time}}
                                 </div>
