@@ -20,7 +20,7 @@ angular
       events: true,
     });
 
-    $urlRouterProvider.otherwise('/login');
+    //$urlRouterProvider.otherwise('/login');
 
     $stateProvider
       .state('dashboard', {
@@ -136,6 +136,10 @@ angular
         templateUrl: 'views/websitepages/aboutuspage.html',
         url: '/aboutuspage'
       })
+      /*.state('test', {
+        templateUrl: 'views/websitepages/aboutuspage.html',
+        url: '/dashboard/events/latest'
+      })*/
       .state('dashboard.mediadynamic', {
         templateUrl: 'views/websitepages/media-dynamic.html',
         url: '/media-dynamic'
@@ -169,31 +173,6 @@ angular
         templateUrl: 'views/pages/blank.html',
         url: '/blank'
       })
-
-    .state('dashboard.chart', {
-        templateUrl: 'views/add-event.html',
-        url: '/add-event',
-        controller: 'ChartCtrl',
-        resolve: {
-          loadMyFile: function($ocLazyLoad) {
-            return $ocLazyLoad.load({
-                name: 'chart.js',
-                files: [
-                  'bower_components/angular-chart.js/dist/angular-chart.min.js',
-                  'bower_components/angular-chart.js/dist/angular-chart.css',
-                  'bower_components/angular-bootstrap-datetimepicker/src/js/datetimepicker.js',
-                  'bower_components/angular-bootstrap-datetimepicker/src/css/datetimepicker.css',
-                  'bower_components/angular-resource/angular-resource.js'
-
-                ]
-              }),
-              $ocLazyLoad.load({
-                name: 'sbAdminApp',
-                files: ['scripts/controllers/chartContoller.js']
-              })
-          }
-        }
-      })
       .state('dashboard.social', {
         templateUrl: 'views/social.html',
         url: '/chart',
@@ -214,9 +193,33 @@ angular
           }
         }
       })
+    .state('dashboard.addEvents', {
+        templateUrl: 'views/add-event.html',
+        url: '/add-event',
+        controller: 'addEventCtrl',
+        resolve: {
+          loadMyFile: function($ocLazyLoad) {
+            return $ocLazyLoad.load({
+                name: 'chart.js',
+                files: [
+                  'bower_components/angular-chart.js/dist/angular-chart.min.js',
+                  'bower_components/angular-chart.js/dist/angular-chart.css',
+                  'bower_components/angular-bootstrap-datetimepicker/src/js/datetimepicker.js',
+                  'bower_components/angular-bootstrap-datetimepicker/src/css/datetimepicker.css',
+                  'bower_components/angular-resource/angular-resource.js'
+
+                ]
+              }),
+              $ocLazyLoad.load({
+                name: 'sbAdminApp',
+                files: ['scripts/controllers/addEventController.js']
+              })
+          }
+        }
+      })
       .state('dashboard.eventDetail', {
         templateUrl: 'views/eventpages/event-details.html',
-        url: '/event',
+        url: '/e/:type/:key',
         controller: 'EventDetailsCtrl',
         resolve: {
           loadMyFile: function($ocLazyLoad) {
@@ -236,7 +239,26 @@ angular
       })
       .state('dashboard.events', {
         templateUrl: 'views/eventpages/events.html',
-        url: '/events/:type?',
+        url: '/events?type',
+        controller: 'EventCtrl',
+        resolve: {
+          loadMyFile: function($ocLazyLoad) {
+            return $ocLazyLoad.load({
+                name: 'chart.js',
+                files: [
+                  'bower_components/angular-chart.js/dist/angular-chart.min.js',
+                  'bower_components/angular-chart.js/dist/angular-chart.css'
+                ]
+              }),
+              $ocLazyLoad.load({
+                name: 'sbAdminApp',
+                files: ['scripts/controllers/eventController.js']
+              })
+          }
+        }
+      }).state('dashboard.eventsearch', {
+        templateUrl: 'views/eventpages/events.html',
+        url: '/searchResult?search',
         controller: 'EventCtrl',
         resolve: {
           loadMyFile: function($ocLazyLoad) {
