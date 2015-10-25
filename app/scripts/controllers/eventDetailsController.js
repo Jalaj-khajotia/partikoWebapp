@@ -12,7 +12,14 @@ angular.module('sbAdminApp')
 		$scope.LoadEvent = function(event) {
 			var event = sessionStorage.getItem('currentEvent');
 			$scope.currentEvent = JSON.parse(event);
-			// console.log(event);
+
+			if($scope.currentEvent.cover === "" )
+			{
+				$scope.showFallBackImg = true;
+			}
+			else{
+					$scope.showFallBackImg = false;
+			}
 		}
 		$scope.LoadEvent();
 	}]);

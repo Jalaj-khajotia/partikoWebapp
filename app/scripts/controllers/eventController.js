@@ -11,7 +11,7 @@ angular.module('sbAdminApp', ['toastr'])
       $scope.eventsList = {};
       $scope.filteredEvents = {};
       var epoch, isEventsPresentinSession;
-     $scope.hideSearchBar = false;
+     $scope.hideSearchBar = true;
       function LoadEventsFromSession() {
         $scope.eventsList = JSON.parse(isEventsPresentinSession);
       }
@@ -94,7 +94,7 @@ angular.module('sbAdminApp', ['toastr'])
         var pastEvents = [];
         var latestEvents = [];
         CheckLastSession();
-        if (isEventsPresentinSession !== undefined && isEventsPresentinSession != null && isEventsPresentinSession != '') {
+        if (isEventsPresentinSession !== "undefined" && isEventsPresentinSession != null && isEventsPresentinSession != '') {
           LoadEventsFromSession();
         }
         angular.forEach($scope.eventsList, function(event) {
@@ -130,7 +130,7 @@ angular.module('sbAdminApp', ['toastr'])
       }
 
       $scope.DeleteEvent = function(event) {
-        console.log('deleting event' + event);
+        console.log('deleting event' + event.key+ '  '+event.name);
         EventsService.DeleteEvent(event.key).then(function(response) {
           toastr.success('Event deleted successfully', 'Success!');
           sessionStorage.removeItem('allEvents');
