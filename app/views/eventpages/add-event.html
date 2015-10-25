@@ -1,126 +1,119 @@
 <section id="main-content">
-        <section class="wrapper">
+    <section class="wrapper">
         <!-- page start-->
- <div class="col-sm-12" style="font-size: 20px; margin-top: 10px; margin-bottom: 10px; font-weight: bold; color: cornflowerblue; margin-left: 200px;">
-        List your Event in just few clicks.
-    </div> 
+        <div class="col-sm-12" style="font-size: 20px; margin-top: 10px; margin-bottom: 10px; font-weight: bold; color: cornflowerblue; margin-left: 200px;">
+            List your Event in just few clicks.
+        </div>
         <div class="row">
             <div class="col-lg-12">
                 <section class="panel">
                     <div class="panel-body">
                         <div class="position-center">
                             <form class="form-horizontal" role="form">
-                               <div class="form-group">
-
-                                   <label class="col-sm-2 col-lg-2 control-label " for="inputSuccess">Catagories</label>
-                                   <div class="col-lg-6" style="margin-bottom:-15px;">
-                                       <select class="form-control m-bot15" ng-model="newEvent.category">
-                                           <option >Nightlife</option>
-                                           <option >Comedy</option>
-                                           <option >Music</option>
-                                           <option >Food + Drink</option>
-                                           <option >StartUps</option>
-                                           <option >Arts</option>
-                                           <option >Theatre</option>
-                                           <option >Workshops</option>
-                                           <option >litrature</option>
-                                           <option >Other</option>
-                                       </select>                                                                             
-                                   </div>
-                               </div>
-
-                                 <div class="form-group">
+                                <div class="form-group">
+                                    <label class="col-sm-2 col-lg-2 control-label " for="inputSuccess">Catagories</label>
+                                    <div class="col-lg-6" style="margin-bottom:-15px;">
+                                        <select class="form-control m-bot15" ng-model="newEvent.category">
+                                            <option value="Comedy">
+                                                Comedy
+                                            </option>
+                                            <option value="Culture">
+                                                Culture
+                                            </option>
+                                            <option value="FoodnDrinks">
+                                                Food &amp; Drinks
+                                            </option>
+                                            <option value="Literature">
+                                                Literature
+                                            </option>
+                                            <option selected="" value="Music">
+                                                Music
+                                            </option>
+                                            <option value="Nightlife">
+                                                Nightlife
+                                            </option>
+                                            <option value="Sports">
+                                                Sports
+                                            </option>
+                                            <option value="Sports">
+                                                Startup
+                                            </option>
+                                            <option value="CollegeEvents">
+                                                College Events
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
                                     <label for="eventName" class="col-lg-2 col-sm-2 control-label">Event Title</label>
                                     <div class="col-lg-10">
                                         <input type="text" class="form-control" id="eventName" placeholder="Event Name" ng-model="newEvent.name">
                                     </div>
                                 </div>
-                                
                                 <div class="form-group">
                                     <label for="description" class="col-lg-2 col-sm-2 control-label">Description</label>
                                     <div class="col-lg-10">
-                                        <textarea  class="form-control" id="Comment" rows="5" placeholder="Some Details about event" ng-model="newEvent.description"></textarea>
+                                        <textarea class="form-control" id="Comment" rows="5" placeholder="Some Details about event" ng-model="newEvent.description"></textarea>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-lg-2 col-sm-2   control-label">Tags</label>
                                     <div class="col-md-10">
-                                        <input  class="form-control" id="tags_1" ng-model="newEvent.tags"  placeholder="Some Details about event" /></input>
+                                        <input class="form-control" id="tags_1" ng-model="newEvent.tags" placeholder="Some Details about event" /></input>
                                     </div>
-
                                 </div>
-                                
                                 <div class="form-group">
-
                                     <label class="control-label col-lg-2 col-sm-2">Start Date &amp; Time</label>
-                                    
                                     <div class="dropdown" style="margin-top: 10px;">
                                         <a class="dropdown-toggle my-toggle-select" id="dLabel" role="button" data-toggle="dropdown" data-target="#" href="">
                                             <div class="input-append col-md-10">
-                                              <input type="text" class="input-large" ng-model="newEvent.start_time" style="width: 100%; border: 1px solid #ccc; border-radius: 4px;-webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);box-shadow: inset 0 1px 1px rgba(0,0,0,.075);">
-                                              <span class="add-on"><i
+                                                <input type="text" class="input-large" ng-model="newEvent.start_time" style="width: 100%; border: 1px solid #ccc; border-radius: 4px;-webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);box-shadow: inset 0 1px 1px rgba(0,0,0,.075);">
+                                                <span class="add-on"><i
                                                     class="icon-calendar"></i></span>
                                             </div>
                                         </a>
                                         <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-                                            <datetimepicker ng-model="newEvent.start_time"
-                                                            data-datetimepicker-config="{ dropdownSelector: '.my-toggle-select' }"></datetimepicker>
+                                            <datetimepicker ng-model="newEvent.start_time" data-datetimepicker-config="{ dropdownSelector: '.my-toggle-select' }"></datetimepicker>
                                         </ul>
-                                  
                                     </div>
                                 </div>
-                                  <div class="form-group">
-
-                                    <label class="control-label col-lg-2 col-sm-2">End Date &amp; Time</label>
-                                    
-                                    <div class="dropdown" style="margin-top: 10px;">
-                                        <a class="dropdown-toggle my-toggle-select" id="dLabel" role="button" data-toggle="dropdown" data-target="#" href="">
-                                            <div class="input-append col-md-10">
-                                              <input type="text" class="input-large" ng-model="newEvent.end_time" style="width: 100%; border: 1px solid #ccc; border-radius: 4px;-webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);box-shadow: inset 0 1px 1px rgba(0,0,0,.075);">
-                                              <span class="add-on">
-                                                <i class="icon-calendar"></i></span>
+                                <!--       <div class="form-group">
+                              <label class="control-label col-lg-2 col-sm-2">End Date &amp; Time</label>
+                              <div class="dropdown" style="margin-top: 10px;">
+                                  <a class="dropdown-toggle my-toggle-select" id="dLabel" role="button" data-toggle="dropdown" data-target="#" href="">
+                                      <div class="input-append col-md-10">
+                                          <input type="text" class="input-large" ng-model="newEvent.end_time" style="width: 100%; border: 1px solid #ccc; border-radius: 4px;-webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);box-shadow: inset 0 1px 1px rgba(0,0,0,.075);">
+                                          <span class="add-on">
+                                          <i class="icon-calendar"></i></span>
+                                      </div>
+                                  </a>
+                                  <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                                      <datetimepicker ng-model="newEvent.end_time" data-datetimepicker-config="{ dropdownSelector: '.my-toggle-select' }"></datetimepicker>
+                                  </ul>
+                              </div>
+                          </div> -->
+                                <div class="form-group">
+                                    <label class="control-label col-lg-2 col-sm-2">Image</label>
+                                    <div class="col-md-9">
+                                        <form name="myForm">
+                                            <button  ngf-select ng-model="coverPic" accept="image/*">
+                                                Select Picture</button>
+                                            <div ngf-drop ng-model="coverPic" ngf-pattern="image/*" class="cropArea">
+                                                <img ngf-src="coverPic" ngf-resize="{width: 500, height: 400}" ngf-no-object-url="false">
                                             </div>
-                                        </a>
-                                        <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-                                            <datetimepicker ng-model="newEvent.end_time" 
-                                                            data-datetimepicker-config="{ dropdownSelector: '.my-toggle-select' }"></datetimepicker>
-                                        </ul>
-                                  
+                                        </form>
                                     </div>
-                                </div>                            
-                             <!--    <div class="form-group">
-                                     <div ng-app="app" flow-init
-      flow-file-added="!!{png:1,gif:1,jpg:1,jpeg:1}[$file.getExtension()]"
-      flow-files-submitted="$flow.upload()">
-    <div class="thumbnail" ng-hide="$flow.files.length">
-      <img src="http://www.placehold.it/200x150/EFEFEF/AAAAAA&text=no+image" />
-    </div>
-    <div class="thumbnail" ng-show="$flow.files.length">
-      <img flow-img="$flow.files[0]" />
-    </div>
-    <div>
-      <a href="" class="btn btn-info" ng-hide="$flow.files.length" flow-btn flow-attrs="{accept:'image/*'}">Select image</a>
-      <a href="" class="btn" ng-show="$flow.files.length" flow-btn flow-attrs="{accept:'image/*'}">Change</a>
-      <a href="" class="btn btn-danger" ng-show="$flow.files.length"
-         ng-click="$flow.cancel()">
-        Remove
-      </a>
-    </div>
-    <p>
-      Only PNG,GIF,JPG files allowed.
-    </p>
-  </div>
-                                </div> -->
+                                </div>
                                 <div class="form-group">
                                     <label for="location" class="col-lg-2 col-sm-2 control-label">Location</label>
                                     <div class="col-lg-10">
-                                        <input type="text" class="form-control" id="location" ng-model="newEvent.location"  placeholder="Place of event">
+                                        <input type="text" class="form-control" id="location" ng-model="newEvent.location" placeholder="Place of event">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="Price" class="col-lg-2 col-sm-2 control-label">Price</label>
                                     <div class="col-lg-10">
-                                        <input type="text" class="form-control" id="price" ng-model="newEvent.price"  placeholder="Price In Rupee">
+                                        <input type="text" class="form-control" id="price" ng-model="newEvent.price" placeholder="Price In Rupee">
                                     </div>
                                 </div>
                                 <div class="col-lg-offset-2 col-lg-10">
@@ -128,13 +121,10 @@
                                 </div>
                             </form>
                         </div>
-
                     </div>
                 </section>
-
             </div>
-
         </div>
         <!-- page end-->
-        </section>
     </section>
+</section>
