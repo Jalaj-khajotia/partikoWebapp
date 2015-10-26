@@ -1,17 +1,29 @@
 'use strict';
 
-angular.module('sbAdminApp', ['toastr'])
-  .controller('EventCtrl', ['$scope', '$window', '$http', 'EventsService', '$stateParams', 'toastr',
-    function($scope, $window, $http, EventsService, $stateParams, toastr) {
+angular.module('sbAdminApp', ['toastr', 'ngDialog'])
+  .controller('EventCtrl', ['$scope', '$window', '$http', 'EventsService', '$stateParams', 'toastr', 'ngDialog', '$rootScope',
+    function($scope, $window, $http, EventsService, $stateParams, toastr, ngDialog, $rootScope) {
 
       var eventsType = $stateParams.type;
       var keyword = $stateParams.search;
       var pastEvents = [];
       var latestEvents = [];
       $scope.eventsList = {};
-      $scope.filteredEvents = {};
+      $rootScope.filteredEvents = {};
+      $scope.dialogShown = true;
       var epoch, isEventsPresentinSession;
-     $scope.hideSearchBar = true;
+      $scope.hideSearchBar = true;
+
+      $scope.ConfirmDelete = function(event) {
+        $rootScope.EventtobeDeleted = event;
+        ngDialog.open({
+          template: 'views/template.html',
+          controller: 'DialogCtrl',
+          className: 'ngdialog-theme-default ngdialog-theme-custom'
+        });
+      };
+
+
       function LoadEventsFromSession() {
         $scope.eventsList = JSON.parse(isEventsPresentinSession);
       }
@@ -52,7 +64,7 @@ angular.module('sbAdminApp', ['toastr'])
             }
           });
         }
-        if (isEventsPresentinSession !== undefined && isEventsPresentinSession != null && isEventsPresentinSession != '') {
+        if (isEventsPresentinSession !== 'undefined' && isEventsPresentinSession != null && isEventsPresentinSession != '') {
           LoadEventsFromSession();
           ProcessEvents();
         } else {
@@ -69,10 +81,10 @@ angular.module('sbAdminApp', ['toastr'])
 
         console.log("Type =" + Type);
         if (Type === 'past') {
-          $scope.filteredEvents = pastEvents;
+          $rootScope.filteredEvents = pastEvents;
 
         } else {
-          $scope.filteredEvents = latestEvents;
+          $rootScope.filteredEvents = latestEvents;
 
         }
 
@@ -108,15 +120,15 @@ angular.module('sbAdminApp', ['toastr'])
         });
         console.log(pastEvents);
         console.log(latestEvents);
-        $scope.filteredEvents = null;
+        $rootScope.filteredEvents = null;
         if (pastEvents.length > 0) {
           latestEvents.push(pastEvents);
         }
         //$scope.filteredEvents.push(latestEvents); 
         debugger;
-        $scope.filteredEvents = latestEvents;
+        $rootScope.filteredEvents = latestEvents;
         console.log("result of search");
-        console.log($scope.filteredEvents);
+        console.log($rootScope.filteredEvents);
 
       }
       if (keyword !== "" && keyword !== null && keyword !== undefined) {
@@ -128,37 +140,58 @@ angular.module('sbAdminApp', ['toastr'])
           $window.location.href = '/#/dashboard/events?type=latest';
         }
       }
-
+/*
       $scope.DeleteEvent = function(event) {
-        console.log('deleting event' + event.key+ '  '+event.name);
+        console.log('deleting event' + event.key + '  ' + event.name);
         EventsService.DeleteEvent(event.key).then(function(response) {
           toastr.success('Event deleted successfully', 'Success!');
           sessionStorage.removeItem('allEvents');
           var afterDeleteEvents = [];
-          angular.forEach($scope.filteredEvents, function(currentEvent) {
+          angular.forEach($rootScope.filteredEvents, function(currentEvent) {
             if (currentEvent.key !== event.key && currentEvent.key !== undefined && currentEvent.key !== null && currentEvent.key !== '') {
               afterDeleteEvents.push(currentEvent);
             }
           });
 
-          $scope.filteredEvents = afterDeleteEvents;
-         // var eventString =  JSON.stringify(afterDeleteEvents);
+          $rootScope.filteredEvents = afterDeleteEvents;
+          // var eventString =  JSON.stringify(afterDeleteEvents);
           //sessionStorage.setItem('allEvents', eventString);
-          console.log($scope.filteredEvents);
+          console.log($rootScope.filteredEvents);
           console.log('event getting deleted');
           console.log(afterDeleteEvents);
         }, function() {
           toastr.success('Event deleting failed', 'Error!');
         });
-      }
+      }*/
 
-      $scope.ShowEventDetails = function(event) {
-          // console.log(event);
+      $scope.ShowEventDetails = function(event) {        
           var stringevent = JSON.stringify(event);
           sessionStorage.setItem('currentEvent', stringevent);
           $window.location.href = '/#/dashboard/e/' + eventsType + '/' + event.key;
-        }
-        //$scope.eventsList = JSON.parse('{"modules": { "module1": { "title": "name of module1","description": "description of module1",            "weeks": {"week1": {"title": "Week 01"}},"module2": {"title": "name of module2", "description": "description of module2",
-        // "weeks": { "week2": {"title": "Week 02"},"week3": { "title": "Week 03" } } } } }}')
+        }        
     }
-  ]);
+  ])
+  .controller('DialogCtrl', ['EventsService', 'toastr', '$scope', 'ngDialog', '$rootScope', function(EventsService, toastr, $scope, ngDialog, $rootScope) {
+   
+    $scope.closeDialog = function() {
+      ngDialog.close('ngdialog1');
+    }
+
+    $scope.DeleteEvent = function() {     
+      ngDialog.close('ngdialog1');      
+      EventsService.DeleteEvent($rootScope.EventtobeDeleted.key).then(function(response) {
+        toastr.success('Event deleted successfully', 'Success!');
+        sessionStorage.removeItem('allEvents');
+        var afterDeleteEvents = [];
+        angular.forEach($rootScope.filteredEvents, function(currentEvent) {
+          if (currentEvent.key !== $rootScope.EventtobeDeleted.key && currentEvent.key !== undefined && currentEvent.key !== null && currentEvent.key !== '') {
+            afterDeleteEvents.push(currentEvent);
+          }
+        });
+        $rootScope.filteredEvents = afterDeleteEvents;
+      }, function() {
+        toastr.success('Event deleting failed', 'Error!');
+      });
+    }
+
+  }]);

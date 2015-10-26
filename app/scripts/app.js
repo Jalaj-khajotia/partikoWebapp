@@ -201,11 +201,7 @@ angular
           loadMyFile: function($ocLazyLoad) {
             return $ocLazyLoad.load({
                 name: 'toastr.js',
-                files: [
-                'bower_components/ng-file-upload/ng-file-upload.js',
-                  'bower_components/ng-file-upload/ng-file-upload-all.js',
-                  'bower_components/ng-file-upload/ng-file-upload-shim.js',
-                  'bower_components/ng-img-crop.js',
+                files: [                
                   'bower_components/angular-toastr/dist/angular-toastr.css',
                   'bower_components/angular-toastr/dist/angular-toastr.tpls.js',
                   'bower_components/angular-animate/angular-animate.js',
@@ -253,6 +249,10 @@ angular
                 files: [   
                   'bower_components/angular-toastr/dist/angular-toastr.css',
                   'bower_components/angular-toastr/dist/angular-toastr.tpls.js',
+                  'bower_components/ng-dialog/css/ngDialog.css',
+                  'bower_components/ng-dialog/css/ngDialog-theme-default.css',
+                  'bower_components/ng-dialog/css/ngDialog-theme-plain.css',
+                  'bower_components/ng-dialog/js/ngDialog.js'
                 ]
               }),
               $ocLazyLoad.load({

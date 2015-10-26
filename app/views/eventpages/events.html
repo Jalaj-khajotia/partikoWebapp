@@ -10,18 +10,19 @@
             <div class="col-sm-12" ng-show="!filteredEvents.length" style="font-size: 20px; margin-top: 20px; font-weight: bold; color: crimson; margin-left: 160px;">
                 No Events posted by you. Try adding some on Add-Event page.
             </div>
-            <div class="col-sm-6" ng-repeat="event in filteredEvents  | filter:keyword " style="text-align : center;">
+
+            <div class="col-sm-6" ng-repeat="e in filteredEvents  | filter:keyword " style="text-align : center;">
                 <header class="panel-heading" id="eventheading1" style="font-weight:bold;">
-                    {{ event.name }}
+                    {{ e.name }}
                 </header>
                 <section class="panel">
                     <div>
                         <div class="row">
                             <div class=" col-xs-9">
-                                <img class="img-responsive" style="max-width: 90%; margin-left: 70px;" ng-if=" event.cover != '' " ng-src="{{event.cover}}" />
+                                <img class="img-responsive" style="max-width: 90%; margin-left: 70px;" ng-if=" event.cover != '' " ng-src="{{e.cover}}" />
                                 <img class="img-responsive" style="max-width: 90%; margin-left: 70px;" ng-if=" event.cover == '' " src="../images/weather_image.jpg" />
                                 <div class="col-sm-12" style="margin: 10px;">
-                                    Starts @ {{ event.start_time}}
+                                    Starts @ {{ e.start_time}}
                                 </div>
                             </div>
                             <div class="col-xs-3">
@@ -31,8 +32,8 @@
                                     <a role="button" href="" target="_blank" class="btn btn-white">Setting</a>
 
                                     <a role="button" href="" target="_blank" class="btn btn-white">Status</a> -->
-                                    <button type="button" class="btn btn-white" data-toggle="modal" data-target="#myModal">Delete</button>
-                                    <div id="myModal" class="modal fade" role="dialog">
+                                    <button type="button" class="btn btn-white" data-toggle="modal" ng-click="ConfirmDelete(e)" data-target="#myModal">Delete</button>
+                                    <!-- <div id="myModal" class="modal fade" role="dialog">
                                         <div class="modal-dialog">
                                             <div class="modal-content">
                                                 <div class="modal-header">
@@ -43,12 +44,12 @@
                                                     <p>Do you really want to delete this event.</p>
                                                 </div>
                                                 <div class="modal-footer">
-                                                    <button type="button" class="btn btn-default" ng-click="DeleteEvent(event)" data-dismiss="modal">Yes</button>
+                                                    <button type="button" class="btn btn-default" data-ng-click="DeleteEvent(e)" data-dismiss="modal">Yes</button>
                                                     <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> -->
                                 </div>
                             </div>
                         </div>
