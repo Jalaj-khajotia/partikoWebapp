@@ -19,15 +19,15 @@
                     <div>
                         <div class="row">
                             <div class=" col-xs-9">
-                                <img class="img-responsive" style="max-width: 90%; margin-left: 70px;" ng-if=" event.cover != '' " ng-src="{{e.cover}}" />
-                                <img class="img-responsive" style="max-width: 90%; margin-left: 70px;" ng-if=" event.cover == '' " src="../images/weather_image.jpg" />
+                                <img class="img-responsive" style="max-width: 90%; margin-left: 70px;" ng-if=" e.cover != '' " ng-src="{{e.cover}}" />
+                                <img class="img-responsive" style="max-width: 90%; margin-left: 70px;" ng-if=" e.cover == '' " src="../images/weather_image.jpg" />
                                 <div class="col-sm-12" style="margin: 10px;">
                                     Starts @ {{ e.start_time}}
                                 </div>
                             </div>
                             <div class="col-xs-3">
                                 <div class="btn-group-vertical">
-                                    <a role="button" href="" target="_blank" class="btn btn-white" ng-click="ShowEventDetails(event)">View</a>
+                                    <a role="button" href="" target="_blank" class="btn btn-white" ng-click="ShowEventDetails(e)">View</a>
                                     <!-- 
                                     <a role="button" href="" target="_blank" class="btn btn-white">Setting</a>
 
