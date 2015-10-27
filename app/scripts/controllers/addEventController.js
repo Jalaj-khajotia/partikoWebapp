@@ -6,12 +6,12 @@
  * # MainCtrl
  * Controller of the sbAdminApp
  */
-angular.module('sbAdminApp', ['ui.bootstrap.datetimepicker', 'toastr'])
+angular.module('sbAdminApp', ['ui.bootstrap.datetimepicker', 'toastr', 'ngDialog'])
 
 .controller('addEventCtrl', ['$scope', '$timeout', '$http', 'EventsService', 'toastr', 'ImageUploadService',
   function($scope, $timeout, $http, EventsService, toastr, ImageUploadService) {
 
-    /*
+    /*  $rootScope.closeDialog
           $scope.upload = function(dataUrl) {
               console.log(dataUrl);
             
@@ -39,6 +39,8 @@ angular.module('sbAdminApp', ['ui.bootstrap.datetimepicker', 'toastr'])
 
 
     function saveEvent(event) {
+      $('#loadingAnimation').hide();
+
       EventsService.AddEvents(event, function() {
           toastr.success('Event added successfully', 'Success!');
           sessionStorage.removeItem('allEvents');
@@ -58,7 +60,8 @@ angular.module('sbAdminApp', ['ui.bootstrap.datetimepicker', 'toastr'])
             var response = JSON.parse(xhr.responseText);
             upload_file(file, response.signed_request, response.url, event);
           } else {
-            alert("Upload other image");
+            toastr.error('Upload another photo', 'Error!');
+            $('#loadingAnimation').hide();
           }
         }
       };
@@ -69,6 +72,7 @@ angular.module('sbAdminApp', ['ui.bootstrap.datetimepicker', 'toastr'])
       $('#preview-pic').attr('src', '');
       $scope.newEvent = null;
       $scope.coverPic = null;
+      $scope.eventStartTime = '';
     }
 
     function GetEventForSaving(XhrResponseforCoverUrl, EventTime, Event) {
@@ -136,23 +140,40 @@ angular.module('sbAdminApp', ['ui.bootstrap.datetimepicker', 'toastr'])
     $scope.confirmed = null;
 
     $scope.AddEvent = function(event) {
+
+
+      //$rootScope.EventtobeDeleted = event;
+      /*  ngDialog.open({
+        template: 'views/LoadingTemplate.html',
+        controller: 'LoadingLogoCtrl',
+        className: 'ngdialog-theme-default ngdialog-theme-custom'
+      });
+*/
+      $('#loadingAnimation').show();
+
       $scope.newEvent = event;
       if ($scope.eventStartTime === undefined) {
-
+        $('#loadingAnimation').hide();
         toastr.error('Add event Date and Time', 'Error!');
+      } else {
+        if ($scope.confirmed == null) {
+          var localevent = GetEventForSaving('', $scope.eventStartTime, $scope.newEvent);
+          saveEvent(localevent);
+        } else {
+          uploadImageandSaveEvent($scope.confirmed, $scope.newEvent);
+        }
       }
-      else{        
-            if ($scope.confirmed == null) {
-              var localevent = GetEventForSaving('', $scope.eventStartTime, $scope.newEvent);
-              saveEvent(localevent);
-            } else {
-              uploadImageandSaveEvent($scope.confirmed, $scope.newEvent);
-            }
-      }
-
-      
       console.log($scope.eventStartTime);
-      //      
     };
+  }
+]).controller('LoadingLogoCtrl', ['toastr', '$scope', 'ngDialog', '$rootScope',
+  function(toastr, $scope, ngDialog, $rootScope) {
+
+    $rootScope.closeDialog = function() {
+      ngDialog.close('ngdialog1');
+    }
+    console.log('i am added');
+
+
   }
 ]);

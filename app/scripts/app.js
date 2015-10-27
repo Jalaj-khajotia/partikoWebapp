@@ -207,7 +207,13 @@ angular
                   'bower_components/angular-animate/angular-animate.js',
                   'bower_components/angular-bootstrap-datetimepicker/src/js/datetimepicker.js',
                   'bower_components/angular-bootstrap-datetimepicker/src/css/datetimepicker.css',
-                  'bower_components/angular-resource/angular-resource.js'
+                  'bower_components/SpinKit/css/spinkit.css',
+                  'bower_components/SpinKit/css/spinners/11-folding-cube.css',
+                  'bower_components/angular-resource/angular-resource.js',
+                  'bower_components/ng-dialog/css/ngDialog.css',
+                  'bower_components/ng-dialog/css/ngDialog-theme-default.css',
+                  'bower_components/ng-dialog/css/ngDialog-theme-plain.css',
+                  'bower_components/ng-dialog/js/ngDialog.js'
                 ]
               }),
               $ocLazyLoad.load({
