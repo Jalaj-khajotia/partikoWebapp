@@ -8,8 +8,8 @@
  */
 angular.module('sbAdminApp', ['ui.bootstrap.datetimepicker', 'toastr'])
 
-.controller('addEventCtrl', ['$scope', '$timeout', '$http', 'EventsService', 'toastr',
-  function($scope, $timeout, $http, EventsService, toastr) {
+.controller('addEventCtrl', ['$scope', '$timeout', '$http', 'EventsService', 'toastr', 'ImageUploadService',
+  function($scope, $timeout, $http, EventsService, toastr, ImageUploadService) {
 
     /*
           $scope.upload = function(dataUrl) {
@@ -40,10 +40,9 @@ angular.module('sbAdminApp', ['ui.bootstrap.datetimepicker', 'toastr'])
 
     function saveEvent(event) {
       EventsService.AddEvents(event, function() {
-          $scope.newEvent = null;
-          $scope.coverPic = null;
           toastr.success('Event added successfully', 'Success!');
           sessionStorage.removeItem('allEvents');
+          ResetPage();
         },
         function() {
           toastr.error('Try again', 'Error!');
@@ -66,6 +65,22 @@ angular.module('sbAdminApp', ['ui.bootstrap.datetimepicker', 'toastr'])
       xhr.send();
     }
 
+    function ResetPage() {
+      $('#preview-pic').attr('src', '');
+      $scope.newEvent = null;
+      $scope.coverPic = null;
+    }
+
+    function GetEventForSaving(XhrResponseforCoverUrl, EventTime, Event) {
+      var coverUrl = '';
+      if (XhrResponseforCoverUrl !== '') {
+        var coverUrl = XhrResponseforCoverUrl.responseURL.split("?")[0];
+      }
+      Event.start_time = convertTime(EventTime);
+      Event.cover = coverUrl;
+      return Event;
+    }
+
     function upload_file(file, signed_request, url, event) {
       var xhr = new XMLHttpRequest();
       xhr.open("PUT", signed_request);
@@ -73,13 +88,8 @@ angular.module('sbAdminApp', ['ui.bootstrap.datetimepicker', 'toastr'])
       xhr.onload = function() {
         if (xhr.status === 200) {
           console.log(xhr);
-          var localevent = $scope.newEvent;
-          localevent.start_time = convertTime($scope.newEvent.start_time); // 'Wed Oct 14 2015 14:30:00 GMT+0530 (India Standard Time)'
-          $('#preview-pic').attr('src', '');
-          var index = xhr.responseURL.indexOf('?');
-          var coverUrl = xhr.responseURL.split("?")[0];
-          console.log(coverUrl);
-          localevent.cover = coverUrl;
+          var localevent = GetEventForSaving(xhr, $scope.eventStartTime, $scope.newEvent);
+          // 'Wed Oct 14 2015 14:30:00 GMT+0530 (India Standard Time)' 
           saveEvent(localevent);
         }
       };
@@ -123,10 +133,26 @@ angular.module('sbAdminApp', ['ui.bootstrap.datetimepicker', 'toastr'])
          }*/
       $scope.progressVisible = false
     };
+    $scope.confirmed = null;
 
     $scope.AddEvent = function(event) {
       $scope.newEvent = event;
-      uploadImageandSaveEvent($scope.confirmed, $scope.newEvent);
+      if ($scope.eventStartTime === undefined) {
+
+        toastr.error('Add event Date and Time', 'Error!');
+      }
+      else{        
+            if ($scope.confirmed == null) {
+              var localevent = GetEventForSaving('', $scope.eventStartTime, $scope.newEvent);
+              saveEvent(localevent);
+            } else {
+              uploadImageandSaveEvent($scope.confirmed, $scope.newEvent);
+            }
+      }
+
+      
+      console.log($scope.eventStartTime);
+      //      
     };
   }
 ]);
