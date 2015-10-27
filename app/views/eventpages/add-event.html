@@ -67,7 +67,7 @@
                                     <div class="dropdown" style="margin-top: 10px;">
                                         <a class="dropdown-toggle my-toggle-select" id="dLabel" role="button" data-toggle="dropdown" data-target="#" href="">
                                             <div class="input-append col-md-10">
-                                                <input type="text" class="input-large" ng-model="eventStartTime" style="width: 100%; border: 1px solid #ccc; border-radius: 4px;-webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);box-shadow: inset 0 1px 1px rgba(0,0,0,.075);" placeholder = "  Give us your event start timings">
+                                                <input type="text" class="input-large" ng-model="eventStartTime" style="width: 100%; border: 1px solid #ccc; border-radius: 4px;-webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);box-shadow: inset 0 1px 1px rgba(0,0,0,.075);" placeholder="  Give us your event start timings">
                                                 <span class="add-on">
                                                     <i
                                                     class="icon-calendar"></i></span>
@@ -97,14 +97,20 @@
                                     <label class="control-label col-lg-2 col-sm-2">Image</label>
                                     <div class="col-md-9">
                                         <!--<form name="myForm">  -->
-                                         <div class="col-lg-10" style="padding-left: 0px;">
-                                                <input type="file" ng-model-instant id="fileToUpload" onchange="angular.element(this).scope().setFiles(this)" />
+                                        <div class="col-lg-10" style="padding-left: 0px;">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <input type="file" ng-model-instant id="fileToUpload" onchange="angular.element(this).scope().setFiles(this)" />
                                                 </div>
-                                             <img class="img-responsive" ng-model="confirmed" id="preview-pic" src="" > 
-                                       <!--  </form> -->
+                                                <div class="col-md-6">
+                                                    <img class="img-responsive" style="width:100%; border-radius: 10px;" ng-model="confirmed" id="preview-pic" src="" />
+                                                </div>
+                                            </div>
+                                            <!--  </form> -->
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="form-group" >
+                                <div class="form-group">
                                     <label for="location" class="col-lg-2 col-sm-2 control-label">Location</label>
                                     <div class="col-lg-10">
                                         <input type="text" class="form-control" id="location" ng-model="newEvent.location" placeholder="Place of event">
@@ -117,14 +123,27 @@
                                     </div>
                                 </div>
                                 <div class="col-lg-offset-2 col-lg-10">
-                                    <button type="submit" class="btn btn-info" ng-click="AddEvent(newEvent)">Submit</button>
-                                </div>
+                                    <div class="row">
+                                        <div class="col-md-2">
+                                            <button type="submit" class="btn btn-info" ng-click="AddEvent(newEvent)">Submit</button>
+                                        </div>
+                                        <div class="col-md-2" style="display:none;" id="loadingAnimation">
+                                            <div class="sk-folding-cube">
+                                                <div class="sk-cube1 sk-cube"></div>
+                                                <div class="sk-cube2 sk-cube"></div>
+                                                <div class="sk-cube4 sk-cube"></div>
+                                                <div class="sk-cube3 sk-cube"></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4" style="display:none;">
+                                            <h4 style="line-height: 21px; margin:0px;">Hold on we just add your event..!</h4>
+                                        </div>
                             </form>
-                        </div>
-                    </div>
+                            </div>
+                            </div>
                 </section>
-            </div>
-        </div>
-        <!-- page end-->
+                </div>
+                </div>
+                <!-- page end-->
     </section>
 </section>
