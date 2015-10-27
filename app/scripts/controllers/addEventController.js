@@ -8,9 +8,9 @@
  */
 angular.module('sbAdminApp', ['ui.bootstrap.datetimepicker', 'toastr', 'ngDialog'])
 
-.controller('addEventCtrl', ['$scope', '$timeout', '$http', 'EventsService', 'toastr', 'ImageUploadService',
-  function($scope, $timeout, $http, EventsService, toastr, ImageUploadService) {
-
+.controller('addEventCtrl', ['$scope', '$timeout', '$http', 'EventsService', 'toastr', 'ImageUploadService','AuthenticationService',
+  function($scope, $timeout, $http, EventsService, toastr, ImageUploadService, AuthenticationService) {
+      AuthenticationService.CheckForLoggedin();
     /*  $rootScope.closeDialog
           $scope.upload = function(dataUrl) {
               console.log(dataUrl);

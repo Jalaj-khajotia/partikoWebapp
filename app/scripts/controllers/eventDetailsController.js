@@ -7,7 +7,7 @@
  * Controller of the sbAdminApp
  */
 angular.module('sbAdminApp')
-	.controller('EventDetailsCtrl', ['$scope', '$window', function($scope, $window) {
+	.controller('EventDetailsCtrl', ['$scope', '$window','AuthenticationService', function($scope, $window, AuthenticationService) {
 
 		$scope.LoadEvent = function(event) {
 			var event = sessionStorage.getItem('currentEvent');
@@ -21,5 +21,6 @@ angular.module('sbAdminApp')
 					$scope.showFallBackImg = false;
 			}
 		}
+		AuthenticationService.CheckForLoggedin();
 		$scope.LoadEvent();
 	}]);

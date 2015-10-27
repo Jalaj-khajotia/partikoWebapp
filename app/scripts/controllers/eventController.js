@@ -2,7 +2,7 @@
 
 angular.module('sbAdminApp', ['toastr', 'ngDialog'])
   .controller('EventCtrl', ['$scope', '$window', '$http', 'EventsService', '$stateParams', 'toastr', 'ngDialog', '$rootScope',
-    function($scope, $window, $http, EventsService, $stateParams, toastr, ngDialog, $rootScope) {
+    'AuthenticationService', function($scope, $window, $http, EventsService, $stateParams, toastr, ngDialog, $rootScope, AuthenticationService) {
 
       var eventsType = $stateParams.type,
         keyword, pastEvents = [],
@@ -19,6 +19,7 @@ angular.module('sbAdminApp', ['toastr', 'ngDialog'])
       }
 
       function _initilize() {
+        AuthenticationService.CheckForLoggedin();
         $scope.eventsList = {};
         $rootScope.filteredEvents = {};
         $scope.dialogShown = true;
