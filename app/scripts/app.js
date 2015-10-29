@@ -131,7 +131,7 @@ angular
             }
           }
         })
-        .state('dashboard.eventDetail', {
+        .state('eventDetail', {
           templateUrl: 'views/eventpages/event-details.html',
           url: '/e/:type/:key',
           controller: 'EventDetailsCtrl',

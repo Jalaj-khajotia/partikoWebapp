@@ -10,3 +10,68 @@ tr:nth-child(even) {
   background: #FDFDFD;
   height: 40px;
 }
+
+.__date span {
+    font-size: 16px;
+    border-radius: 10px;
+    border: 1px solid #e3e3e3;
+    display: inline-block;
+    padding: 15px 10px;
+    text-align: center;
+    line-height: 22px;    
+}
+
+.name .tags span {
+    font-size: 11px;
+    color: #dfe3e6;
+    background: 0 0;
+    padding: 4px 8px;
+    border-radius: 10px;
+    border: 1px solid #dfe3e6;
+    margin-left: 5px;
+    text-transform: uppercase;
+    display: inline-block;
+}
+.name .tags>span {
+    line-height: initial;
+    font-weight: 100;
+    background: #f4f4f4;
+    color: #b4b4b4;
+}
+
+#exTab1 .tab-content {
+  color : white;
+  background-color: #B9B1C7;
+  padding : 5px 15px;
+}
+
+#exTab2 h3 {
+  color : white;
+  background-color: #428bca;
+  padding : 5px 15px;
+}
+
+#exTab1 .nav-pills > li.active > a{
+	    color: white;
+    background-color: #337ab7;
+}
+
+/* remove border radius for the tab */
+
+#exTab1 .nav-pills > li > a {
+  border-radius: 0;
+}
+
+/* change border radius for the tab , apply corners on top*/
+
+#exTab3 .nav-pills > li > a {
+  border-radius: 4px 4px 0 0 ;
+}
+
+#exTab3 .tab-content {
+  color : white;
+  background-color: #428bca;
+  padding : 5px 15px;
+}
+
+

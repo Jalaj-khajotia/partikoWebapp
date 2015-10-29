@@ -54,7 +54,7 @@ angular.module('sbAdminApp', ['toastr', 'ngDialog'])
       $scope.ShowEventDetails = function(event) {
         var stringevent = JSON.stringify(event);
         sessionStorage.setItem('currentEvent', stringevent);
-        $window.location.href = '/#/dashboard/e/' + eventsType + '/' + event.key;
+        $window.location.href = '#/e/' + eventsType + '/' + event.key;
       }
 
       $scope.SearchEvent = function(keyword) {
