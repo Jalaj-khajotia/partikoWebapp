@@ -2,12 +2,14 @@
 
 angular.module('sbAdminApp', ['toastr', 'ngDialog'])
   .controller('EventCtrl', ['$scope', '$window', '$http', 'EventsService', '$stateParams', 'toastr', 'ngDialog', '$rootScope',
-    'AuthenticationService', function($scope, $window, $http, EventsService, $stateParams, toastr, ngDialog, $rootScope, AuthenticationService) {
+    'AuthenticationService',
+    function($scope, $window, $http, EventsService, $stateParams, toastr, ngDialog, $rootScope, AuthenticationService) {
 
       var eventsType = $stateParams.type,
         keyword, pastEvents = [],
         latestEvents = [],
-        epoch, isEventsPresentinSession;
+        today,
+        epoch, isEventsPresentinSession, LoadedEvents;
 
       function DisplayEvents(eventsType) {
         console.log("Type =" + eventsType);
@@ -19,12 +21,13 @@ angular.module('sbAdminApp', ['toastr', 'ngDialog'])
       }
 
       function _initilize() {
-        AuthenticationService.CheckForLoggedin();
+        // AuthenticationService.CheckForLoggedin();
         $scope.eventsList = {};
         $rootScope.filteredEvents = {};
         $scope.dialogShown = true;
         $scope.hideSearchBar = true;
         keyword = $stateParams.search;
+        LoadDateTimeFunction();
 
         if (eventsType !== "" && eventsType !== null && eventsType !== undefined) {
           LoadEvents(eventsType);
@@ -62,7 +65,7 @@ angular.module('sbAdminApp', ['toastr', 'ngDialog'])
         var pastEvents = [];
         var latestEvents = [];
         CheckLastSession();
-        if (isEventsPresentinSession !== "undefined" && isEventsPresentinSession != null && isEventsPresentinSession != '') {
+        if (isEventsPresentinSession) {
           LoadEventsFromSession();
         }
         angular.forEach($scope.eventsList, function(event) {
@@ -85,15 +88,30 @@ angular.module('sbAdminApp', ['toastr', 'ngDialog'])
         console.log($rootScope.filteredEvents);
       }
 
+      $scope.EditEvent = function(event) {
+      var stringevent = JSON.stringify(event);
+        sessionStorage.setItem('EditEventDetails', stringevent);
+        $window.location.href = '#/dashboard/edit-event?key=' + event.key;
+      }
+
       function LoadEventsFromSession() {
-        $scope.eventsList = JSON.parse(isEventsPresentinSession);
+        $scope.eventsList = JSON.parse(LoadedEvents);
       }
 
       function CheckLastSession() {
-        isEventsPresentinSession = sessionStorage.getItem('allEvents');
+        var LastEventFetchedDate = sessionStorage.getItem('eventsFetchedDate');
+        LoadedEvents = sessionStorage.getItem('allEvents');
+        var TodaysDate = today.today();
+        if (LoadedEvents !== 'undefined' && LoadedEvents != null && LoadedEvents != '' &&
+          TodaysDate === LastEventFetchedDate) {
+          isEventsPresentinSession = true;
+        } else {
+          isEventsPresentinSession = false;
+        }
       }
 
       function LoadDateTimeFunction() {
+        today = new Date();
         Date.prototype.today = function() {
           return ((this.getDate() < 10) ? "0" : "") + this.getDate() + "/" + (((this.getMonth() + 1) < 10) ? "0" : "") + (this.getMonth() + 1) + "/" + this.getFullYear();
         }
@@ -103,9 +121,8 @@ angular.module('sbAdminApp', ['toastr', 'ngDialog'])
       }
 
       function ProcessEvents(Type) {
-        var today = new Date();
         epoch = moment(today.today() + " " + today.timeNow(), "D/M/YYYY H:mm").unix();
-
+        console.log(today.today() + " " + today.timeNow());
         angular.forEach($scope.eventsList, function(event) {
           if (Type === 'past') {
             console.log("evluating past");
@@ -138,22 +155,21 @@ angular.module('sbAdminApp', ['toastr', 'ngDialog'])
           .then(function(response) {
             $scope.eventsList = response.data.events;
             sessionStorage.setItem('allEvents', JSON.stringify(response.data.events));
+            sessionStorage.setItem('eventsFetchedDate', today.today());
             ProcessEvents(eventsType);
           });
       }
 
       function LoadEvents(Type) {
         CheckLastSession();
-        LoadDateTimeFunction();
 
-        if (isEventsPresentinSession !== 'undefined' && isEventsPresentinSession != null && isEventsPresentinSession != '') {
+        if (isEventsPresentinSession) {
           LoadEventsFromSession();
           ProcessEvents(eventsType);
         } else {
           LoadEventfromEventService();
         }
       };
-
       _initilize();
     }
   ])

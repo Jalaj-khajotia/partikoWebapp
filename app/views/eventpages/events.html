@@ -19,7 +19,7 @@
                     <div>
                         <div class="row">
                             <div class=" col-xs-9">
-                                <img class="img-responsive" style=" margin-left: 70px; height:122px;" ng-if=" e.cover != '' " ng-src="{{e.cover}}" />
+                                <img class="img-responsive" style="height:122px; display: initial;" ng-if=" e.cover != '' " ng-src="{{e.cover}}" />
                                 <img class="img-responsive" style="max-width: 90%; margin-left: 70px;" ng-if=" e.cover == '' " src="../images/weather_image.jpg" />
                                 <div class="col-sm-12" style="margin: 10px;">
                                     Starts @ {{ e.start_time}}
@@ -28,10 +28,9 @@
                             <div class="col-xs-3">
                                 <div class="btn-group-vertical">
                                     <a role="button" href="" target="_blank" class="btn btn-white" ng-click="ShowEventDetails(e)">View</a>
-                                    <!-- 
-                                    <a role="button" href="" target="_blank" class="btn btn-white">Setting</a>
-
-                                    <a role="button" href="" target="_blank" class="btn btn-white">Status</a> -->
+                                   <a role="button"  target="_blank" class="btn btn-white" ng-click="EditEvent(e)">Edit</a>
+                                   
+                                   <!-- s<a role="button" href="" target="_blank" class="btn btn-white">Status</a> -->
                                     <button type="button" class="btn btn-white" data-toggle="modal" ng-click="ConfirmDelete(e)" data-target="#myModal">Delete</button>                                
                                 </div>
                             </div>
