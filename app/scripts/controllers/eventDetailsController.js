@@ -1,9 +1,9 @@
 'use strict';
 /**
  * @ngdoc function
- * @name sbAdminApp.controller:MainCtrl
+ * @name 
  * @description
- * # MainCtrl
+ * # 
  * Controller of the sbAdminApp
  */
 angular.module('sbAdminApp')
@@ -21,12 +21,7 @@ angular.module('sbAdminApp')
 			$scope.year = splittedDate[2];
 			var split = splittedDate[3].split(':');
 	        var hrs = split[0]+ ':'+ split[1] ;
-			$scope.timeInAmPmFormat = hrs+ ' '+ splittedDate[4];
-			
-
-			//Sep 5, 2015 15:30
-//Sep 5, 2015 03:30:00 PM
-			
+			$scope.timeInAmPmFormat = hrs+ ' '+ splittedDate[4];			
 
 			if ($scope.currentEvent.cover === "") {
 				$scope.showFallBackImg = true;
