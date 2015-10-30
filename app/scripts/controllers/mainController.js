@@ -13,9 +13,11 @@ angular.module('sbAdminApp')
         pastEvents = [],
         epoch,
         latestEvents = [],
-        isEventsPresentinSession;
+        today,
+        isEventsPresentinSession,
+        LoadedEvents;
 
-      $scope.filteredEvents = [{
+    /*  $scope.filteredEvents = [{
         "name": "jalaj",
         "start_time": "02/08/2015",
         "cover": ""
@@ -23,14 +25,22 @@ angular.module('sbAdminApp')
         "name": "jalaj",
         "start_time": "02/08/2015",
         "cover": ""
-      }];
+      }];*/
 
       if (!token) {
         // $window.location.href ="/#/Login";
       } else {}
 
-      function CheckLastSession() {
-        isEventsPresentinSession = sessionStorage.getItem('allEvents');
+       function CheckLastSession() {
+        var LastEventFetchedDate = sessionStorage.getItem('eventsFetchedDate');
+        LoadedEvents = sessionStorage.getItem('allEvents');
+        var TodaysDate = today.today();
+        if (LoadedEvents !== 'undefined' && LoadedEvents != null && LoadedEvents != '' &&
+          TodaysDate === LastEventFetchedDate) {
+          isEventsPresentinSession = true;
+        } else {
+          isEventsPresentinSession = false;
+        }        
       }
 
       function LoadDateTimeFunction() {
@@ -43,11 +53,10 @@ angular.module('sbAdminApp')
       }
 
       function LoadEventsFromSession() {
-        $scope.eventsList = JSON.parse(isEventsPresentinSession);
+        $scope.eventsList = JSON.parse(LoadedEvents);
       }
 
-      function ProcessEvents(Type) {
-        var today = new Date();
+      function ProcessEvents(Type) {       
         epoch = moment(today.today() + " " + today.timeNow(), "D/M/YYYY H:mm").unix();
 
         angular.forEach($scope.eventsList, function(event) {
@@ -77,15 +86,15 @@ angular.module('sbAdminApp')
         });
       }
 
-      function LoadEventfromEventService() {
+       function LoadEventfromEventService() {
         EventsService.GetEvents(function() {})
           .then(function(response) {
             $scope.eventsList = response.data.events;
             sessionStorage.setItem('allEvents', JSON.stringify(response.data.events));
+            sessionStorage.setItem('eventsFetchedDate', today.today());
             ProcessEvents('past');
             ProcessEvents('latest');
             DisplayEvents();
-
           });
       }
 
@@ -95,10 +104,9 @@ angular.module('sbAdminApp')
       }
 
       function LoadEvents() {
-        CheckLastSession();
-        LoadDateTimeFunction();
+        CheckLastSession();   
 
-        if (isEventsPresentinSession !== 'undefined' && isEventsPresentinSession != null && isEventsPresentinSession != '') {
+        if (isEventsPresentinSession) {
           LoadEventsFromSession();
           ProcessEvents('past');
           ProcessEvents('latest');
@@ -120,6 +128,8 @@ angular.module('sbAdminApp')
 
       function _initilize() {
         AuthenticationService.CheckForLoggedin();
+         today = new Date();
+        LoadDateTimeFunction();
         LoadMerchantProfile();
         LoadEvents();
         DisplayEvents();
