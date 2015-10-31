@@ -14,8 +14,8 @@
     <div class="row">
         <div class="jumbotron" style="margin:auto; border-radius: 5px;">
             <div class="wrapper">
-            <img class="img-responsive" style="display: inline;" ng-src="{{currentEvent.cover}}" ng-if="!showFallBackImg" />
-            <img class="img-responsive" style="max-width: 90%; display: inline ;" ng-if="showFallBackImg" src="../images/weather_image.jpg" />
+            <img class="img-responsive" style="display: inline; height: 300px;" ng-src="{{currentEvent.cover}}" ng-if="!showFallBackImg" />
+            <img class="img-responsive" style="height: 300px; display: inline ;" ng-if="showFallBackImg" src="../images/weather_image.jpg" />
         </div>
         </div>
     </div>
@@ -52,7 +52,7 @@
                     <li><a data-target="#3a" data-toggle="tab">Get Tickets</a>
                     </li>                   
                 </ul>
-                <div class="tab-content clearfix">
+                <div class="tab-content clearfix" style= "height: 110px;">
                     <div class="tab-pane active" id="1a">
                          <h4>Phone1: {{currentEvent.phone1}}</h4>
                          <h4>Phone2: {{currentEvent.phone2}}</h4>

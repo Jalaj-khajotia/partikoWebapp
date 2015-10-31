@@ -19,8 +19,8 @@
                     <div>
                         <div class="row">
                             <div class=" col-xs-9">
-                                <img class="img-responsive" style="height:122px; display: initial;" ng-if=" e.cover != '' " ng-src="{{e.cover}}" />
-                                <img class="img-responsive" style="max-width: 90%; margin-left: 70px;" ng-if=" e.cover == '' " src="../images/weather_image.jpg" />
+                                <img class="img-responsive" style="height:122px; display: initial;" ng-click="ShowEventDetails(e)" ng-if=" e.cover != '' " ng-src="{{e.cover}}" />
+                                <img class="img-responsive" style="max-width: 90%; margin-left: 70px;" ng-click="ShowEventDetails(e)" ng-if=" e.cover == '' " src="../images/weather_image.jpg" />
                                 <div class="col-sm-12" style="margin: 10px;">
                                     Starts @ {{ e.start_time}}
                                 </div>
