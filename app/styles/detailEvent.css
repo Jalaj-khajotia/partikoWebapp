@@ -1,4 +1,4 @@
-td:nth-child(odd) {
+/* td:nth-child(odd) {
   font-weight: bold;
   font-size: 20px;
 }
@@ -9,7 +9,7 @@ tr:nth-child(odd) {
 tr:nth-child(even) {  
   background: #FDFDFD;
   height: 40px;
-}
+} */
 
 .__date span {
     font-size: 16px;
