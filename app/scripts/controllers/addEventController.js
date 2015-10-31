@@ -19,11 +19,12 @@ angular.module('sbAdminApp', ['ui.bootstrap.datetimepicker', 'toastr', 'ngDialog
     }
 
     function saveEvent(event) {
-      $('#loadingAnimation').hide();
+   
 
       EventsService.AddEvents(event, function() {
           toastr.success('Event added successfully', 'Success!');
-          sessionStorage.removeItem('allEvents');
+             $('#loadingAnimation').hide();
+            sessionStorage.removeItem('allEvents');
           ResetPage();
         },
         function() {
@@ -109,8 +110,7 @@ angular.module('sbAdminApp', ['ui.bootstrap.datetimepicker', 'toastr', 'ngDialog
       $('#loadingAnimation').show();
 
       $scope.newEvent = event;
-      if ($scope.eventStartTime === undefined) {
-        $('#loadingAnimation').hide();
+      if ($scope.eventStartTime === undefined) {      
         toastr.error('Add event Date and Time', 'Error!');
       } else {
         if ($scope.uploadedImage == null) {
