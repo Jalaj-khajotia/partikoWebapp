@@ -12,12 +12,10 @@ angular.module('sbAdminApp')
     $http.defaults.headers.common['Authorization'] = 'Basic ' + encodedData;
 
     service.GetEvents = function(callback) {
-
       return $http.post('http://web.partiko.com/merchant/events', {
           "offset": 0
         })
         .then(function(response) {
-          // console.log(response.data.events);
           callback(response);
           return response;
         }, function(error) {
@@ -30,7 +28,6 @@ angular.module('sbAdminApp')
 
     service.DeleteEvent = function(eventkey) {
       // change to http://web.partiko.com/merchant/event
-      console.log('eventkey: ' + eventkey);
       var req = {
         method: 'DELETE',
         url: 'http://api.partiko.com/merchant/event',
@@ -55,12 +52,13 @@ angular.module('sbAdminApp')
 */
     };
 
-    service.EditEvents = function(event) {
-      console.log(event);
+    service.EditEvents = function(event, callback,error) {
       return $http.put('http://web.partiko.com/merchant/event', event)
         .then(function(response) {
+          callback();
           return response;
         }, function(error) {
+          error();
           return error;
         });
     };
@@ -69,13 +67,11 @@ angular.module('sbAdminApp')
 
       $http.post('http://web.partiko.com/merchant/event', event)
         .success(function(response) {
-          //console.log(response);
-           callback();
+          callback();
           return response;
-         
+
         }).error(function(error) {
-           failure();
-          console.log(error);
+          failure();
         });
 
     };
