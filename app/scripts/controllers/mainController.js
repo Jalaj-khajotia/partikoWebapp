@@ -86,6 +86,12 @@ angular.module('sbAdminApp')
         });
       }
 
+      $scope.ShowEventDetails = function(event) {
+        var stringevent = JSON.stringify(event);
+        sessionStorage.setItem('currentEvent', stringevent);
+        $window.location.href = '#/e/dash' + '/' + event.key;
+      }
+
        function LoadEventfromEventService() {
         EventsService.GetEvents(function() {})
           .then(function(response) {
