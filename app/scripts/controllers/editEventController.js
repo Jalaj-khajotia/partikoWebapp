@@ -7,8 +7,9 @@
  * Controller of the sbAdminApp
  */
 angular.module('sbAdminApp', ['toastr'])
-  .controller('editEventCtrl', ['$scope', '$window', '$http', 'AuthenticationService', '$stateParams','toastr',
-    function($scope, $window, $http, AuthenticationService, $stateParams, toastr) {
+  .controller('editEventCtrl', ['$scope', '$window', '$http', 'AuthenticationService', '$stateParams', 'toastr',
+    'EventsService',
+    function($scope, $window, $http, AuthenticationService, $stateParams, toastr, EventsService) {
 
       var eventKey = $stateParams.key;
       console.log(eventKey);
@@ -17,16 +18,16 @@ angular.module('sbAdminApp', ['toastr'])
 
         $('#loadingAnimation').show();
 
-        $scope.newEvent = event;
+
         if ($scope.eventStartTime === undefined) {
           $('#loadingAnimation').hide();
           toastr.error('Add event Date and Time', 'Error!');
         } else {
-          if ($scope.confirmed == null || event.cover === $scope.confirmed) {
+          if ($scope.uploadedImage == null || !$scope.newImageUploaded) {
             var localevent = GetEventForSaving('', $scope.eventStartTime, $scope.newEvent);
             saveEvent(localevent);
           } else {
-            uploadImageandSaveEvent($scope.confirmed, $scope.newEvent);
+            uploadImageandSaveEvent($scope.uploadedImage, $scope.newEvent);
           }
         }
       }
@@ -36,11 +37,12 @@ angular.module('sbAdminApp', ['toastr'])
         var currentEvent = JSON.parse(event);
         $scope.newEvent = {};
         $scope.newEvent.category = currentEvent.category;
+        $scope.newEvent.event_key = currentEvent.key;
         $scope.newEvent.name = currentEvent.name;
         $scope.newEvent.description = currentEvent.description;
         $scope.newEvent.tags = currentEvent.tags;
         $scope.eventStartTime = currentEvent.start_time; //convert epoch time
-        $scope.confirmed = currentEvent.cover; //image model
+        $scope.uploadedImage = currentEvent.cover; //image model
         $scope.newEvent.cover = currentEvent.cover;
         $scope.newEvent.location = currentEvent.place;
         $scope.newEvent.price = currentEvent.price;
@@ -66,13 +68,16 @@ angular.module('sbAdminApp', ['toastr'])
 
       function GetEventForSaving(XhrResponseforCoverUrl, EventTime, Event) {
         var coverUrl = '';
-        if (XhrResponseforCoverUrl !== '') {
-          coverUrl = XhrResponseforCoverUrl.responseURL.split("?")[0];
-        }
-        if ($scope.newEvent.cover !== "") {
+        if ($scope.newEvent.cover !== "") { /// error
           coverUrl = $scope.newEvent.cover;
         }
-        Event.start_time = convertTime(EventTime);
+        if (XhrResponseforCoverUrl !== '' && $scope.newImageUploaded) {
+          coverUrl = XhrResponseforCoverUrl.responseURL.split("?")[0];
+        }
+        if ($scope.timeEdited) {
+          Event.start_time = convertTime(EventTime);
+        }
+
         Event.cover = coverUrl;
         return Event;
       }
@@ -80,11 +85,13 @@ angular.module('sbAdminApp', ['toastr'])
       function upload_file(file, signed_request, url, event) {
         var xhr = new XMLHttpRequest();
         xhr.open("PUT", signed_request);
+        console.log('signed request ' + signed_request);
         xhr.setRequestHeader('x-amz-acl', 'public-read');
         xhr.onload = function() {
           if (xhr.status === 200) {
-            console.log(xhr);
+            console.log('XHR request   ' + xhr.responseURL.split("?")[0]);
             var localevent = GetEventForSaving(xhr, $scope.eventStartTime, event);
+            console.log('cover image url' + localevent.cover);
             // 'Wed Oct 14 2015 14:30:00 GMT+0530 (India Standard Time)' 
             saveEvent(localevent);
           }
@@ -105,19 +112,20 @@ angular.module('sbAdminApp', ['toastr'])
       }
 
       function saveEvent(event) {
+        console.log('save event  ' + event.cover);
         $('#loadingAnimation').hide();
-
-        EventsService.AddEvents(event, function() {
-            toastr.success('Event added successfully', 'Success!');
+        EventsService.EditEvents(event, function() {
+            toastr.success('Event edited successfully', 'Success!');
             sessionStorage.removeItem('allEvents');
-            ResetPage();
           },
           function() {
+            $('#loadingAnimation').hide();
             toastr.error('Try again', 'Error!');
           });
       }
 
       $scope.onTimeSet = function(newDate, oldDate) {
+        $scope.timeEdited = true;
         console.log(newDate);
         console.log(oldDate);
       }
@@ -126,11 +134,12 @@ angular.module('sbAdminApp', ['toastr'])
         console.log('files:', element.files);
         var reader = new FileReader();
         reader.onload = function(e) {
-          //$scope.confirmed = e.target.result;
+          //$scope.uploadedImage = e.target.result;
           $('#preview-pic').attr('src', e.target.result);
         }
         reader.readAsDataURL(element.files[0]);
-        $scope.confirmed = element.files[0];
+        $scope.uploadedImage = element.files[0];
+        $scope.newImageUploaded = true;
 
         // Turn the FileList object into an Array
         /*   $scope.files = []
@@ -143,6 +152,8 @@ angular.module('sbAdminApp', ['toastr'])
       function _initilize() {
         LoadEvent();
         $scope.Heading = "Edit your event";
+        $scope.newImageUploaded = false;
+        $scope.timeEdited = false;
       }
 
       _initilize();
