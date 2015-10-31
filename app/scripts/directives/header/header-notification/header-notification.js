@@ -17,14 +17,29 @@ angular.module('sbAdminApp')
 					AuthenticationService.GetProfile().then(function(response) {
 						$scope.merchantName = response.data.data.name;
 						console.log($rootScope.name);
+						sessionStorage.setItem('merchantProfile', JSON.stringify(response.data.data));
 						$scope.profile = response.data;
 					}, function() {
 
 					})
 				}
-				LoadMerchantProfile()
-				
-				console.log($scope.merchantName);
+
+				function _initilize() {
+					var isUserLoggedin = sessionStorage.getItem('LoggedIn');
+					if (isUserLoggedin === "true") {
+						var merchantProfile = sessionStorage.getItem('merchantProfile');
+						$scope.merchantName = JSON.parse(merchantProfile).name;
+					} else {
+						sessionStorage.setItem('LoggedIn', 'true');
+						LoadMerchantProfile();
+					}
+					console.log($scope.merchantName);
+					$scope.disable = true;
+				}
+
+				_initilize();
+
+
 			}]
 		}
 	});

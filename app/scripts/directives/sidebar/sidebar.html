@@ -1,5 +1,5 @@
 <div class="navbar-default sidebar" role="navigation">
-    <div class="sidebar-nav navbar-collapse">
+    <div class="sidebar-nav navbar-collapse" style="margin-top: 8px;">
         <ul class="nav in" id="side-menu">
             <li ui-sref-active="active">
                 <a ui-sref="dashboard.home"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
@@ -22,7 +22,7 @@
                     <li ui-sref-active="active">
                         <a ui-sref="dashboard.events({type: 'past'})">Past Events</a>
                     </li>
-                    <li ui-sref-active="active">
+                    <li ui-sref-active="active" style="margin-bottom: 10px;">
                         <div class="input-group m-bot15" style="margin-left:20px;width:200px;">
                             <span class="input-group-addon btn-default">
                                <a ui-sref="dashboard.eventsearch({search: keyword})" style="padding: 0px;"> <i class="fa fa-search"></i></a>
@@ -37,11 +37,11 @@
             <li ui-sref-active="active">
                 <a ui-sref="dashboard.social"><i class="fa fa-tasks fa-fw"></i>Social Integration<span></span></a>
             </li>
-            <li ui-sref-active="active">
+            <li ui-sref-active="active" ng-hide="disable">
                 <a ui-sref="#"><i class="fa fa-eye fa-fw"></i>Events Analytics<span></span></a>
             </li>
 
-            <li ng-class="{active: collapseVar==2}">
+            <li ng-class="{active: collapseVar==2}" ng-hide="disable">
                 {{dropDown}}
                 <a href="" ng-click="check(2)">
                     <i class="fa fa-th fa-fw"></i>Merchants<span class="fa arrow"></span>
@@ -65,7 +65,7 @@
                 <!-- /.nav-second-level -->
             </li>
 
-            <li ng-class="{active: collapseVar==3}">
+            <li ng-class="{active: collapseVar==3}" ng-hide="disable">
                 {{dropDown}}
                 <a href="" ng-click="check(3)">
                     <i class="fa fa-user-md fa-fw"></i>Campus Ambassadors<span class="fa arrow"></span>
@@ -80,7 +80,7 @@
                 </ul>
             </li>
 
-            <li ng-class="{active: collapseVar==4}">
+            <li ng-class="{active: collapseVar==4}" ng-hide="disable">
                 {{dropDown}}
                 <a href="" ng-click="check(4)">
                     <i class="fa fa-tasks fa-fw"></i>Web Pages<span class="fa arrow"></span>
